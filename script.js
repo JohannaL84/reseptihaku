@@ -46,6 +46,24 @@ function displayResults(recipes) {
     }
 }
   
+// Kirjautuminen
+function login() {
+    const email = document.getElementById('emailInput').value;
+    const password = document.getElementById('passwordInput').value;
+
+    if (email && password) {
+        document.getElementById('loginMessage').textContent = 'Kirjautuminen onnistui!';
+        document.getElementById('loginMessage').style.color = 'green';
+
+        // Tyhjennä kirjautumistiedot
+        document.getElementById('emailInput').value = '';
+        document.getElementById('passwordInput').value = '';
+    } else {
+        document.getElementById('loginMessage').textContent = 'Täytä kaikki kentät!';
+        document.getElementById('loginMessage').style.color = 'red';
+    }
+}
+
 // Haussa voi käyttää Enteriä hakutuloksen saamiseksi
 document.getElementById('searchInput').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {

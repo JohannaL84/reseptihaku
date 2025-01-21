@@ -8,8 +8,35 @@
 </head>
 <body>
     <h1>Ruokareseptihaku</h1>
+
+    <!-- Kirjautuminen-osio -->
+    <div id="loginSection">
+        <h2>Kirjaudu sisään</h2>
+        <form id="loginForm">
+            <input type="email" id="emailInput" placeholder="Sähköposti" required>
+            <input type="password" id="passwordInput" placeholder="Salasana" required>
+            <button type="button" onclick="login()">Kirjaudu</button>
+        </form>
+        <div id="loginActions">
+            <!-- Linkitetään unohtunut salasana -sivulle -->
+            <button type="button" onclick="window.location.href='forgot_password.html'">Unohditko salasanan?</button>
+            <!-- "Uusi käyttäjä" ohjaa rekisteröitymissivulle -->
+            <button type="button" onclick="window.location.href='register.html'">Uusi käyttäjä</button>
+        </div>
+        <p id="loginMessage"></p>
+    </div>
+
+    <!-- Hakukenttä -->
     <input type="text" id="searchInput" placeholder="Kirjoita ainesosa tai ruokalaji">
     <button onclick="searchRecipes()">Hae reseptejä</button>
+
+    <!-- Lisävalinnat -->
+    <div id="extraButtons">
+        <button onclick="challengeRecipes()">Haastereseptit</button>
+        <button onclick="randomRecipe()">Randomresepti</button>
+        <button onclick="topTenRecipes()">TOP-10 Reseptilista</button>
+    </div>
+
     <div id="results"></div>
 
     <script src="script.js"></script>
