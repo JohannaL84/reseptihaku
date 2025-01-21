@@ -17,6 +17,7 @@
             <input type="email" id="emailInput" placeholder="Sähköposti" required>
             <input type="password" id="passwordInput" placeholder="Salasana" required>
             <button type="button" onclick="login()">Kirjaudu</button>
+            <button id="profileButton" onclick="goToProfile()" style="display: none;">Omat tiedot</button>
         </form>
         <div id="loginActions">
             <button type="button" onclick="window.location.href='forgot_password.html'">Unohditko salasanan?</button>
@@ -26,7 +27,7 @@
     </div>
 
     <!-- Hakukenttä -->
-    <input type="text" id="searchInput" placeholder="Kirjoita ainesosa tai ruokalaji">
+    <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajit pilkulla erotettuina">
     <button onclick="searchRecipes()">Hae reseptejä</button>
 
     <!-- Lisävalinnat -->

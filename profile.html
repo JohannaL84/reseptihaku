@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Käyttäjäprofiili</title>
+</head>
+<body>
+    <h2>Käyttäjäprofiili</h2>
+    <p>Käyttäjänimi: <span id="profileUsername"></span></p>
+    <h3>Omat reseptit</h3>
+    <div id="userRecipes"></div>
+    <h3>Pisteet</h3>
+    <p id="userPoints">0</p>
+    <button onclick="logout()">Kirjaudu ulos</button>
+
+    <script>
+        const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
+
+        function logout() {
+            window.location.href = 'index.html';
+        }
+
+        function showUserProfile() {
+            const username = localStorage.getItem('username');
+            document.getElementById('profileUsername').innerText = username;
+
+            const points = localStorage.getItem('points');
+            document.getElementById('userPoints').innerText = points;
+
+            const userRecipesDiv = document.getElementById('userRecipes');
+            userRecipesDiv.innerHTML = '';
+            userRecipes.forEach(recipe => {
+                const recipeDiv = document.createElement('div');
+                recipeDiv.innerHTML = `
+                    <h4>${recipe.name}</h4>
+                    <img src="${recipe.thumbnail}" alt="${recipe.name}" width="100">
+                    <p>${recipe.instructions}</p>
+                `;
+                userRecipesDiv.appendChild(recipeDiv);
+            });
+        }
+
+        showUserProfile();
+    </script>
+</body>
+</html>
