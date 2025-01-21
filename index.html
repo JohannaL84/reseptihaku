@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Ruokareseptihaku</h1>
+    <!-- Etusivulle vievä otsikko -->
+    <h1><a href="index.html" id="homeLink">Ruokareseptihaku</a></h1>
 
     <!-- Kirjautuminen-osio -->
     <div id="loginSection">
@@ -18,9 +19,7 @@
             <button type="button" onclick="login()">Kirjaudu</button>
         </form>
         <div id="loginActions">
-            <!-- Linkitetään unohtunut salasana -sivulle -->
             <button type="button" onclick="window.location.href='forgot_password.html'">Unohditko salasanan?</button>
-            <!-- "Uusi käyttäjä" ohjaa rekisteröitymissivulle -->
             <button type="button" onclick="window.location.href='register.html'">Uusi käyttäjä</button>
         </div>
         <p id="loginMessage"></p>

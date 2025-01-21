@@ -46,3 +46,12 @@ button:hover {
     display: block;
     margin: 10px auto;
 }
+
+#homeLink {
+    text-decoration: none; /* Ei alaviivaa oletuksena */
+    color: inherit; /* Perii tekstin värin */
+}
+
+#homeLink:hover {
+    text-decoration: none; /* Ei alaviivaa hover-tilassa */
+}
