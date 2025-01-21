@@ -46,3 +46,9 @@ function displayResults(recipes) {
     }
 }
   
+// Haussa voi käyttää Enteriä hakutuloksen saamiseksi
+document.getElementById('searchInput').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        searchRecipes();
+    }
+});
