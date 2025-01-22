@@ -3,39 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruokareseptihaku - Etusivu</title>
+    <title>Ruokareseptihaku</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="background"></div>
     <!-- Sivun otsikko -->
     <h1>Ruokareseptihaku</h1>
 
     <!-- Lyhyt kuvaus -->
-    <p>Etsi, jaa ja kokeile herkullisia reseptejä vaivattomasti!</p>
+    <p>Etsi, jaa, kokeile ja haasta ystäviä tekemään herkullisia reseptejä vaivattomasti!</p>
 
     <!-- Hakukenttä -->
-    <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
+        <button onclick="searchRecipes()">Hae</button>
+    </div>
     
     <!-- Lyhyt oranssi viiva -->
     <div class="divider"></div>
 
-    <button onclick="searchRecipes()">Hae reseptejä</button>
+    <div class="button-container">
+        <button>Selaa reseptejä</button>
+        <button>Kirjaudu</button>
+        <button>Uusi käyttäjä</button>
+    </div>
 
     <!-- Alatunniste -->
     <div id="footer">
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </div>
-
-    <script>
-        function searchRecipes() {
-            const query = document.getElementById('searchInput').value;
-            if (query) {
-                alert(`Etsitään reseptejä: ${query}`);
-                // Lisää hakulogiikka tänne
-            } else {
-                alert('Kirjoita hakusana ennen hakemista!');
-            }
-        }
-    </script>
 </body>
 </html>

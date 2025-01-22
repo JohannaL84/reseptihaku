@@ -1,17 +1,43 @@
-/* styles.css */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: url('images/taustakuva.jpg') no-repeat center center fixed;
-    background-size: cover;
     color: #fff;
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Keskittää vaakasuunnassa */
-    justify-content: center; /* Keskittää pystysuunnassa */
+    align-items: center;
+    justify-content: center;
     height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/taustakuva.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(8px); /* Sumeuttaa vain taustakuvan */
+    z-index: -1; /* Vie taustakuvan kaikkien elementtien taakse */
+}
+
+body.sumea .background {
+    filter: blur(8px); /* Sumeuttaa taustakuvan sumealla sivulla */
+}
+
+.content-box {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9); /* Vaalea tausta, hieman läpinäkyvä */
+    border-radius: 15px; /* Pyöristetyt kulmat */
+    padding: 30px;
+    max-width: 800px; /* Leveys laatikolle */
+    margin: 50px auto; /* Keskittää laatikon */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Pehmeä varjo */
+    z-index: 1; /* Tuodaan taustakuvan eteen */
 }
 
 h1 {
@@ -26,15 +52,26 @@ p {
     margin-top: 1rem;
 }
 
+.search-container {
+    display: flex; /* Asettaa hakukentän ja napin vierekkäin */
+    align-items: center; /* Kohdistaa pystysuunnassa keskelle */
+    margin-top: 20px;
+    gap: 10px; /* Väli hakukentän ja napin välillä */
+}
+
 #searchInput {
     padding: 10px;
-    font-size: 1.2rem; /* Isompi fontti hakukentälle */
+    font-size: 1.2rem;
     width: 60%;
     max-width: 500px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin: 20px 0;
-    text-align: center; /* Keskittää tekstin kentän sisällä */
+}
+
+.button-container {
+    display: flex; /* Asettaa lapset riviin */
+    gap: 10px; /* Etäisyys nappien välillä */
+    margin-top: 20px; /* Etäisyys yläelementeistä */
 }
 
 button {
@@ -54,10 +91,10 @@ button:hover {
 
 .divider {
     height: 4px;
-    width: 60%; /* Oranssin viivan leveys sidottu hakukenttään */
+    width: 60%;
     max-width: 500px;
     background-color: #ff6600;
-    margin: 10px auto; /* Keskittää viivan */
+    margin: 10px auto;
 }
 
 #footer {
@@ -68,4 +105,56 @@ button:hover {
     font-size: 0.9rem;
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.login-section {
+    margin: 20px auto;
+}
+
+.login-section h2 {
+    font-size: 1.8rem;
+    color: #ff6600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.login-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-section input {
+    padding: 10px;
+    font-size: 1rem;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-section button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ff6600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-section button:hover {
+    background-color: #ff5500;
+}
+
+.login-section a {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-section a:hover {
+    text-decoration: underline;
 }
