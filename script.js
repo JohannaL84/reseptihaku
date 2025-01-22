@@ -1,61 +1,54 @@
 
-const recipesDatabase = [
+const recipes = [
     {
         name: 'Spaghetti Bolognese',
         thumbnail: 'spaghetti_bolognese.jpg',
+        ingredients: ["spagetti", "jauheliha", "sipuli", "valkosipuli", "tomaattikastike"],
         instructions: '1. Ruskista jauheliha...'
     },
     {
         name: 'Kana Caesar-salaatti',
         thumbnail: 'chicken_caesar_salad.jpg',
+        ingredients:["kana", "salaatti"],
         instructions: '1. Leikkaa kana...'
     },
     {
         name: 'Kasviscurry',
         thumbnail: 'vegetable_curry.jpg',
+        ingredients: ["munakoiso", "bataatti", "paprika"],
         instructions: '1. Kuumenna öljy...'
+    },
+    {
+        name: "Kanakeitto",
+        ingredients: ["kana", "porkkana", "peruna", "sipuli", "valkosipuli", "kasvisliemi"],
+        instructions: "1. Pilko ainekset ja keitä kasvisliemessä, kunnes ne ovat kypsiä."
     }
         // Lisää omia reseptejäsi tähän
 ];
 
-// Etsii reseptit
-function searchRecipes() {
-    const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-    const searchTerms = searchQuery.split(',').map(term => term.trim()); // Hakee useammalla hakusanalla, pilkulla erotettuna
-    const filteredRecipes = recipesDatabase.filter(recipe =>
-        searchTerms.some(term => recipe.name.toLowerCase().includes(term))
+ // Etsii reseptit
+ function searchRecipes() {
+    const keywords = document.getElementById("search").value.toLowerCase().split(",").map(kw => kw.trim()); // Huomioi hakusanoissa isot kirjaimet ja poistaa ylimääräiset välilyönnit
+    const results = recipes.filter(recipe =>
+        keywords.some(keyword =>
+            recipe.name.toLowerCase().includes(keyword) ||
+            recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(keyword))
+        )
     );
-    displayResults(filteredRecipes); // Näyttää suodatetut tulokset
+
+    displayResults(results);
+}
+// Näyttää tulokset nimen ja ainesosien perusteella
+function displayResults(results) {
+    document.getElementById("results").innerHTML = results.map(recipe => 
+        `<h2>${recipe.name}</h2>
+         <p>${recipe.instructions}</p>`
+    ).join("");
 }
 
-function displayResults(recipes) {
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '';
-    if (recipes.length > 0) {
-        recipes.forEach(recipe => {
-            const recipeDiv = document.createElement('div');
-            // Näyttää reseptin ohjeen ja kuvan
-            recipeDiv.innerHTML = `
-               <h2>${recipe.name}</h2>
-                <img src="${recipe.thumbnail}" alt="${recipe.name}" width="200">
-                <p>${recipe.instructions}</p>
-                <button onclick="addRecipe('${recipe.name}', '${recipe.thumbnail}', '${recipe.instructions.replace(/'/g, "\\'")}')">Lisää omiin resepteihin</button>
-            `;
-            resultsDiv.appendChild(recipeDiv);
-        });
-    } else {
-        resultsDiv.innerHTML = 'Ei löytynyt reseptejä.';
-    }
-}
+const userRecipes = []; // Alustetaan muuttuja käyttäjän resepteille
 
-const userRecipes = []; // Käyttäjän reseptit
 
-// Lisää resepti omiin resepteihin 
-function addRecipe(name, thumbnail, instructions) {
-    userRecipes.push({ name, thumbnail, instructions });
-    alert('Resepti lisätty omiin resepteihin!');
-}
-  
 // Kirjautuminen
 function login() {
     const email = document.getElementById('emailInput').value;
@@ -89,7 +82,7 @@ function addRecipe(name, thumbnail, instructions) {
     alert('Resepti lisätty omiin resepteihin!');
 }
 
-
+// Funktio omiin tietoihin
 function goToProfile() {
     window.location.href = 'profile.html';
 }
