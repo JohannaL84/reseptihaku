@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruokareseptihaku - Etusivu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sivun otsikko -->
+    <h1>Ruokareseptihaku</h1>
+
+    <!-- Lyhyt kuvaus -->
+    <p>Etsi, jaa ja kokeile herkullisia reseptejä vaivattomasti!</p>
+
+    <!-- Hakukenttä -->
+    <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
+    
+    <!-- Lyhyt oranssi viiva -->
+    <div class="divider"></div>
+
+    <button onclick="searchRecipes()">Hae reseptejä</button>
+
+    <!-- Alatunniste -->
+    <div id="footer">
+        <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
+    </div>
+
+    <script>
+        function searchRecipes() {
+            const query = document.getElementById('searchInput').value;
+            if (query) {
+                alert(`Etsitään reseptejä: ${query}`);
+                // Lisää hakulogiikka tänne
+            } else {
+                alert('Kirjoita hakusana ennen hakemista!');
+            }
+        }
+    </script>
+</body>
+</html>
