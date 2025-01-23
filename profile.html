@@ -1,15 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="fi">
 <head>
-    <title>Käyttäjäprofiili</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omat tiedot</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="background"></div> <!-- Taustakuva -->
+
+    <div class="content-box"> <!-- Vaalea laatikko -->
+        <header>
+            <h1>Ruokareseptihaku</h1>
+            <p>Liity mukaan ja aloita reseptimatkasi jo tänään!</p>
+        </header>
+
     <h2>Käyttäjäprofiili</h2>
-    <p>Käyttäjänimi: <span id="profileUsername"></span></p>
+        <p>Käyttäjänimi: <span id="profileUsername"></span></p>
     <h3>Omat reseptit</h3>
-    <div id="userRecipes"></div>
+        <div id="userRecipes"></div>
     <h3>Pisteet</h3>
-    <p id="userPoints">0</p>
+        <p id="userPoints">0</p>
     <button onclick="logout()">Kirjaudu ulos</button>
 
     <script>
@@ -41,5 +52,9 @@
 
         showUserProfile();
     </script>
+
+    <footer> <!-- Footer siirretty boksin ulkopuolelle -->
+        <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
+    </footer>
 </body>
 </html>

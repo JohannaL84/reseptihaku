@@ -1,57 +1,160 @@
-/* styles.css */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/taustakuva.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(8px); /* Sumeuttaa vain taustakuvan */
+    z-index: -1; /* Vie taustakuvan kaikkien elementtien taakse */
+}
+
+body.sumea .background {
+    filter: blur(8px); /* Sumeuttaa taustakuvan sumealla sivulla */
+}
+
+.content-box {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9); /* Vaalea tausta, hieman läpinäkyvä */
+    border-radius: 15px; /* Pyöristetyt kulmat */
+    padding: 30px;
+    max-width: 800px; /* Leveys laatikolle */
+    margin: 50px auto; /* Keskittää laatikon */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Pehmeä varjo */
+    z-index: 1; /* Tuodaan taustakuvan eteen */
 }
 
 h1 {
+    font-size: 4rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     color: #ff6600;
-    text-align: center;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.search-container {
+    display: flex; /* Asettaa hakukentän ja napin vierekkäin */
+    align-items: center; /* Kohdistaa pystysuunnassa keskelle */
+    margin-top: 20px;
+    gap: 10px; /* Väli hakukentän ja napin välillä */
 }
 
 #searchInput {
-    width: 80%;
     padding: 10px;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
+    width: 60%;
+    max-width: 500px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
+.button-container {
+    display: flex; /* Asettaa lapset riviin */
+    gap: 10px; /* Etäisyys nappien välillä */
+    margin-top: 20px; /* Etäisyys yläelementeistä */
+}
+
 button {
     padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
     background-color: #ff6600;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 button:hover {
     background-color: #ff5500;
 }
 
-#results div {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px 0;
-    background-color: white;
-}
-
-#results img {
-    border-radius: 10px;
-    display: block;
+.divider {
+    height: 4px;
+    width: 60%;
+    max-width: 500px;
+    background-color: #ff6600;
     margin: 10px auto;
 }
 
-#homeLink {
-    text-decoration: none; /* Ei alaviivaa oletuksena */
-    color: inherit; /* Perii tekstin värin */
+#footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
-#homeLink:hover {
-    text-decoration: none; /* Ei alaviivaa hover-tilassa */
+.login-section {
+    margin: 20px auto;
+}
+
+.login-section h2 {
+    font-size: 1.8rem;
+    color: #ff6600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.login-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-section input {
+    padding: 10px;
+    font-size: 1rem;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-section button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ff6600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-section button:hover {
+    background-color: #ff5500;
+}
+
+.login-section a {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-section a:hover {
+    text-decoration: underline;
 }
