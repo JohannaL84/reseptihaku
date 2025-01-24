@@ -11,32 +11,48 @@
 
     <div class="content-box"> <!-- Vaalea laatikko -->
         <header>
-            <h1>Ruokareseptihaku</h1>
+            <!-- Linkki etusivulle -->
+            <h1><a href="index2.html" id="homeLink">Ruokareseptihaku</a></h1>
             <p>Liity mukaan ja aloita reseptimatkasi jo tänään!</p>
         </header>
 
-    <h2>Käyttäjäprofiili</h2>
-        <p>Käyttäjänimi: <span id="profileUsername"></span></p>
-    <h3>Omat reseptit</h3>
-        <div id="userRecipes"></div>
-    <h3>Pisteet</h3>
-        <p id="userPoints">0</p>
-    <button onclick="logout()">Kirjaudu ulos</button>
+        <!-- Käyttäjänimi -->
+        <div class="boxText">
+        <h2>Käyttäjäprofiili</h2>
+            <p>Käyttäjänimi: <span id="profileUsername"></span></p>
 
+        
+
+        <!-- Käyttäjän pisteet. Laskuri ei vielä toimi -->
+        <h3>Pisteet</h3>
+            <p id="userPoints">0</p>
+
+        <!-- Tähän käyttäjän omille resepteille painike Omat reseptit- sivulle. Sivua ei ole vielä -->
+            <div id="userRecipes"></div>
+        <button onclick="userResipes()">Omat reseptit</button> 
+
+
+        <!-- Uloskirjautuminen -->
+        <button onclick="logout()">Kirjaudu ulos</button>
+
+        </div>
+    </div>
     <script>
         const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
 
         function logout() {
             window.location.href = 'index.html';
         }
-
+        // Näyttää profiilin
         function showUserProfile() {
             const username = localStorage.getItem('username');
             document.getElementById('profileUsername').innerText = username;
 
+            // Laskee pisteet
             const points = localStorage.getItem('points');
             document.getElementById('userPoints').innerText = points;
 
+            // Käyttäjän omat reseptit
             const userRecipesDiv = document.getElementById('userRecipes');
             userRecipesDiv.innerHTML = '';
             userRecipes.forEach(recipe => {

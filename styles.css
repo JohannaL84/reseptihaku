@@ -68,6 +68,10 @@ p {
     border-radius: 5px;
 }
 
+.boxText {
+    color: #ff6600; /* UUSI!! OMIEN TIETOJEN TEKSTIEN VÄRI*/
+}
+
 .button-container {
     display: flex; /* Asettaa lapset riviin */
     gap: 10px; /* Etäisyys nappien välillä */
