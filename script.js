@@ -46,8 +46,42 @@ function displayResults(results) {
     ).join("");
 }
 
-const userRecipes = []; // Alustetaan muuttuja käyttäjän resepteille
+let userRecipes = []; // Alustetaan muuttuja käyttäjän resepteille
 
+// Haussa voi käyttää Enteriä hakutuloksen saamiseksi
+document.getElementById('searchInput').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        searchRecipes();
+    }
+});
+
+// Lisää resepti omiin resepteihin 
+function addRecipe(name, thumbnail, instructions) {
+    userRecipes.push({ name, thumbnail, instructions });
+    alert('Resepti lisätty omiin resepteihin!');
+}
+
+// Näyttää käyttäjän omat reseptit
+function showUserRecipes() {
+    const newRecipes = document.getElementById('newRecipes');
+    newRecipes.innerHTML = results.map(recipe => 
+        `<h2>${recipe.name}</h2>
+        <p>${recipe.instructions}<button onclick="poista(${index})">Poista</button></p>` // Tästä tehtävä painike etusivulle
+    ).join("");
+};
+
+// Poistaa oman reseptin
+function removeOwnRecipe(index) {
+    userRecipes.splice(index, 1);
+    showUserRecipes();
+}
+
+// Järjestää omat reseptit
+function shortOwnRecipe() {
+    userRecipes.sort();
+    showUserRecipes();
+    
+}
 
 // Kirjautuminen
 function login() {
@@ -67,22 +101,24 @@ function login() {
         document.getElementById('loginMessage').style.color = 'red';
     }
 }
-
-// Haussa voi käyttää Enteriä hakutuloksen saamiseksi
-document.getElementById('searchInput').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        searchRecipes();
-    }
-});
-
-
-// Lisää resepti omiin resepteihin 
-function addRecipe(name, thumbnail, instructions) {
-    userRecipes.push({ name, thumbnail, instructions });
-    alert('Resepti lisätty omiin resepteihin!');
-}
-
 // Funktio omiin tietoihin
 function goToProfile() {
     window.location.href = 'profile.html';
+}
+
+// Kirjaa käyttäjän ulos
+function logout() {
+    window.location.href = 'index.html';
+}
+
+// Näyttää profiilin
+function showUserProfile() {
+    const username = localStorage.getItem('username');
+    document.getElementById('profileUsername').innerText = username;
+}
+
+// Laskee pisteet
+function showUserPoints() {
+    const points = localStorage.getItem('points');
+    document.getElementById('userPoints').innerText = points;
 }

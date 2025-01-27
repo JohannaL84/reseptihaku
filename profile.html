@@ -18,8 +18,11 @@
 
         <!-- Käyttäjänimi -->
         <div class="boxText">
+
         <h2>Käyttäjäprofiili</h2>
-            <p>Käyttäjänimi: <span id="profileUsername"></span></p>
+            <p>Käyttäjänimi: <!-- Ei pysty näyttämään -->
+                <div id="profileUsername"></div>
+                
 
         
 
@@ -38,7 +41,8 @@
         </div>
     </div>
     <script>
-        const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
+         /*
+        //const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
 
         function logout() {
             window.location.href = 'index.html';
@@ -48,25 +52,51 @@
             const username = localStorage.getItem('username');
             document.getElementById('profileUsername').innerText = username;
 
-            // Laskee pisteet
+        }
+        // Laskee pisteet
+        function showUserPoints() {
             const points = localStorage.getItem('points');
             document.getElementById('userPoints').innerText = points;
 
-            // Käyttäjän omat reseptit
-            const userRecipesDiv = document.getElementById('userRecipes');
-            userRecipesDiv.innerHTML = '';
-            userRecipes.forEach(recipe => {
-                const recipeDiv = document.createElement('div');
-                recipeDiv.innerHTML = `
+        }
+
+        let userRecipes = [];
+
+        // Näyttää käyttäjän omat reseptit
+        function showUserRecipes() {
+            const newRecipes = document.getElementById('newRecipes');
+            newRecipes.innerHTML = results.map(recipe => 
+                `<h2>${recipe.name}</h2>
+                <p>${recipe.instructions}<button onclick="poista(${index})">Poista</button></p>` // Tästä tehtävä painike etusivulle
+                
+            ).join("");
+                
+               
+                `
                     <h4>${recipe.name}</h4>
                     <img src="${recipe.thumbnail}" alt="${recipe.name}" width="100">
                     <p>${recipe.instructions}</p>
                 `;
-                userRecipesDiv.appendChild(recipeDiv);
-            });
+                userRecipes.appendChild(recipe);
+                
+            };
+        
+        // Poistaa oman reseptin
+        function removeOwnRecipe(index) {
+            userRecipes.splice(index, 1);
+            showUserRecipes();
         }
-
+        
+        // Järjestää omat reseptit
+        function shortOwnRecipe() {
+            userRecipes.sort();
+            showUserRecipes();
+            
+        }
+        
+                   
         showUserProfile();
+        */
     </script>
 
     <footer> <!-- Footer siirretty boksin ulkopuolelle -->
