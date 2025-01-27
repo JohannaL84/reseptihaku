@@ -6,39 +6,32 @@
     <title>Ruokareseptihaku</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="sumea">
-    <!-- Etusivulle vievä otsikko -->
-    <h1><a href="index.html" id="homeLink">Ruokareseptihaku</a></h1>
+<body>
+    <div class="background"></div>
+    <!-- Sivun otsikko -->
+    <h1>Ruokareseptihaku</h1>
 
-    <!-- Kirjautuminen-osio -->
-    <div id="loginSection">
-        <h2>Kirjaudu sisään</h2>
-        <form id="loginForm">
-            <input type="email" id="emailInput" placeholder="Sähköposti" required>
-            <input type="password" id="passwordInput" placeholder="Salasana" required>
-            <button type="button" onclick="login()">Kirjaudu</button>
-            <button id="profileButton" onclick="goToProfile()" style="display: none;">Omat tiedot</button>
-        </form>
-        <div id="loginActions">
-            <button type="button" onclick="window.location.href='forgot_password.html'">Unohditko salasanan?</button>
-            <button type="button" onclick="window.location.href='register.html'">Uusi käyttäjä</button>
-        </div>
-        <p id="loginMessage"></p>
-    </div>
+    <!-- Lyhyt kuvaus -->
+    <p>Etsi, jaa, kokeile ja haasta ystäviä tekemään herkullisia reseptejä vaivattomasti!</p>
 
     <!-- Hakukenttä -->
-    <input type="text" id="search" placeholder="Kirjoita ainesosia tai ruokalajit pilkulla erotettuina">
-    <button onclick="searchRecipes()">Hae reseptejä</button>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
+        <button onclick="searchRecipes()">Hae</button>
+    </div>
+    
+    <!-- Lyhyt oranssi viiva -->
+    <div class="divider"></div>
 
-    <!-- Lisävalinnat -->
-    <div id="extraButtons">
-        <button onclick="challengeRecipes()">Haastereseptit</button>
-        <button onclick="randomRecipe()">Randomresepti</button>
-        <button onclick="topTenRecipes()">TOP-10 Reseptilista</button>
+    <div class="button-container">
+        <button>Selaa reseptejä</button>
+        <button>Kirjaudu</button>
+        <button>Uusi käyttäjä</button>
     </div>
 
-    <div id="results"></div>
-
-    <script src="script.js"></script>
+    <!-- Alatunniste -->
+    <div id="footer">
+        <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
+    </div>
 </body>
 </html>
