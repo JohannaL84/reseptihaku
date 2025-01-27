@@ -52,6 +52,20 @@ p {
     margin-top: 1rem;
 }
 
+.p2 { 
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #333; /* Tumma harmaa väri TÄMÄ P2 LÖYTYY MM. UNOHTUNTU SALASANA OSIOSTA*/
+}
+
+.field-instruction { /* UUSI KÄYTTÄJÄ LOMAKE */
+    font-size: 0.9rem;
+    color: #666; /* Harmaa väri */
+    margin-top: 5px;
+    text-align: left;
+}
+
+
 .search-container {
     display: flex; /* Asettaa hakukentän ja napin vierekkäin */
     align-items: center; /* Kohdistaa pystysuunnassa keskelle */

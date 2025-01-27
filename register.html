@@ -3,55 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekisteröidy</title>
+    <title>Rekisteröidy uudeksi käyttäjäksi</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Otsikko, joka toimii linkkinä etusivulle -->
-    <h1><a href="index.html" id="homeLink">Ruokareseptihaku</a></h1>
+    <div class="background"></div> <!-- Taustakuva -->
 
-    <h2>Luo uusi tunnus</h2>
+    <div class="content-box"> <!-- Vaalea laatikko -->
+        <header>
+            <h1>Ruokareseptihaku</h1>
+            <p class="p2">Liity mukaan ja aloita reseptihakumatkasi jo tänään!</p>
+        </header>
 
-    <form id="registerForm">
-        <label for="emailInput">Sähköposti:</label>
-        <input type="email" id="emailInput" placeholder="Anna sähköpostisi" required>
+        <section class="login-section">
+            <h2>Rekisteröidy</h2>
+            <form>
+                <input type="text" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
+                <input type="email" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
+                <input type="password" placeholder="Salasana (väh. 12 merkkiä, ks. tarkemmat ohjeet)" required>
+                <input type="password" placeholder="Vahvista salasana (kirjoita sama salasana)" required>
+                <div class="button-container">
+                    <button type="submit">Rekisteröidy</button>
+                    <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
+                </div>
+            </form>
+        </section>
+    </div>
 
-        <label for="passwordInput">Salasana:</label>
-        <input type="password" id="passwordInput" placeholder="Anna salasana" required>
-
-        <label for="confirmPasswordInput">Vahvista salasana:</label>
-        <input type="password" id="confirmPasswordInput" placeholder="Toista salasana" required>
-
-        <button type="button" onclick="register()">Luo tunnus</button>
-    </form>
-
-    <p id="registerMessage"></p>
-
-    <script>
-        function register() {
-            const email = document.getElementById('emailInput').value;
-            const password = document.getElementById('passwordInput').value;
-            const confirmPassword = document.getElementById('confirmPasswordInput').value;
-            const message = document.getElementById('registerMessage');
-
-            if (!email || !password || !confirmPassword) {
-                message.textContent = 'Täytä kaikki kentät!';
-                message.style.color = 'red';
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                message.textContent = 'Salasanat eivät täsmää!';
-                message.style.color = 'red';
-                return;
-            }
-
-            message.textContent = 'Tunnus luotu onnistuneesti!';
-            message.style.color = 'green';
-
-            // Tyhjennä lomake
-            document.getElementById('registerForm').reset();
-        }
-    </script>
+    <footer> <!-- Footer siirretty boksin ulkopuolelle -->
+        <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
+    </footer>
 </body>
 </html>
