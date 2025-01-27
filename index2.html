@@ -3,35 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reseptivalinnat</title>
+    <title>Ruokareseptihaku</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fdf4e3;
-            color: #333;
-            text-align: center;
-        }
-
-        header {
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            color: #ff6600;
-        }
-
-        p {
-            font-size: 1.2rem;
-            color: #555;
-        }
-
+        /* Grid-kategorioiden tyylit */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -41,18 +16,18 @@
 
         .grid-item {
             background-color: #fff;
-            padding: 15px; /* Kasvatettu padding */
+            padding: 15px;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
-            aspect-ratio: 1 / 1; /* Tekee elementistä neliön */
+            aspect-ratio: 1 / 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            max-width: 200px; /* Suurempi maksimileveys */
-            margin: auto; /* Keskittää kortit */
+            max-width: 200px;
+            margin: auto;
         }
 
         .grid-item:hover {
@@ -61,59 +36,49 @@
         }
 
         .grid-item h2 {
-            font-size: 1.6rem; /* Suurempi fonttikoko */
+            font-size: 1.6rem;
             margin: 10px 0;
             color: #333;
         }
 
         .grid-item p {
-            font-size: 1rem; /* Suurempi fonttikoko */
+            font-size: 1rem;
             color: #666;
         }
 
-        .grid-item:nth-child(1) {
-            background-color: #dff6f0;
-        }
-
-        .grid-item:nth-child(2) {
-            background-color: #fcefe3;
-        }
-
-        .grid-item:nth-child(3) {
-            background-color: #fff3e0;
-        }
-
-        .grid-item:nth-child(4) {
-            background-color: #ffe4e1;
-        }
-
-        .grid-item:nth-child(5) {
-            background-color: #e3f2fd;
-        }
-
-        .grid-item:nth-child(6) {
-            background-color: #ede7f6;
-        }
-
-        footer {
-            background-color: #fff;
-            padding: 10px;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #555;
-        }
+        /* Värit kullekin laatikolle */
+        .grid-item:nth-child(1) { background-color: #dff6f0; }
+        .grid-item:nth-child(2) { background-color: #fcefe3; }
+        .grid-item:nth-child(3) { background-color: #fff3e0; }
+        .grid-item:nth-child(4) { background-color: #ffe4e1; }
+        .grid-item:nth-child(5) { background-color: #e3f2fd; }
+        .grid-item:nth-child(6) { background-color: #ede7f6; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Ruokareseptihaku</h1>
-        <p>Valitse kategoria ja aloita inspiraatio!</p>
-    </header>
+    <div class="background"></div>
+    <!-- Sivun otsikko -->
+    <h1>Ruokareseptihaku</h1>
 
+    <!-- Lyhyt kuvaus -->
+    <p>Etsi, jaa, kokeile ja haasta ystäviä tekemään herkullisia reseptejä vaivattomasti!</p>
+
+    <!-- Hakukenttä -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
+        <button onclick="searchRecipes()">Hae</button>
+    </div>
+    
+    <!-- Lyhyt oranssi viiva -->
+    <div class="divider"></div>
+
+    <div class="button-container">
+        <button>Selaa reseptejä</button>
+        <button>Kirjaudu</button>
+        <button>Uusi käyttäjä</button>
+    </div>
+
+    <!-- Kategorioiden laatikot -->
     <main class="grid-container">
         <div class="grid-item">
             <h2>Kasvisruoat</h2>
@@ -141,8 +106,9 @@
         </div>
     </main>
 
-    <footer>
+    <!-- Alatunniste -->
+    <div id="footer">
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
-    </footer>
+    </div>
 </body>
 </html>
