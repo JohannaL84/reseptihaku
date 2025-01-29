@@ -17,14 +17,21 @@
 
         <section class="login-section">
             <h2>Kirjaudu</h2>
-            <form>
-                <input type="text" placeholder="Käyttäjätunnus" required>
-                <input type="password" placeholder="Salasana" required>
+            <form onsubmit="login(event)"> <!-- Lomakkeen käsittely login.js-tiedostossa -->
+                <input type="text" id="username" placeholder="Käyttäjätunnus tai sähköposti" required>
+                <input type="password" id="password" placeholder="Salasana" required>
                 <div class="button-container">
                     <button type="submit">Kirjaudu</button>
                     <button type="button" onclick="location.href='register.html'">Luo uusi käyttäjä</button>
                 </div>
+                <p id="loginError" class="p2" style="color: red;"></p> <!-- Virheilmoitus -->
             </form>
+
+            <!-- Google-kirjautumisnappi -->
+            <button type="button" onclick="googleLogin()" class="google-btn">
+                Kirjaudu sisään Googlella
+            </button>
+
             <p class="p2">Unohtuiko salasana? <a href="forgot_password.html">Palauta salasana tästä.</a></p>
         </section>
     </div>
@@ -32,5 +39,28 @@
     <footer> <!-- Footer -->
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </footer>
+
+    <!-- Firebase SDK Google-kirjautumista varten -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+
+    <script>
+        // 🔹 Firebase-konfiguraatio (Google-kirjautuminen)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGE5QfzpVW_0hChXIY7FADwssb3rhcc9M",
+            authDomain: "reseptijengi.firebaseapp.com",
+            projectId: "reseptijengi",
+            storageBucket: "reseptijengi.firebasestorage.app",
+            messagingSenderId: "202829076304",
+            appId: "1:202829076304:web:eace89cb84e1bf1714fe55"
+        };
+
+        // Alustetaan Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <!-- JavaScript-tiedostot -->
+    <script src="login.js"></script> <!-- Normaalin kirjautumisen logiikka -->
+    <script src="google-login.js"></script> <!-- Google-kirjautumisen logiikka -->
 </body>
 </html>

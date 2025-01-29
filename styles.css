@@ -58,6 +58,19 @@ p {
     color: #333; /* Tumma harmaa väri TÄMÄ P2 LÖYTYY MM. UNOHTUNTU SALASANA OSIOSTA*/
 }
 
+.p12 {
+    font-size: 1.2rem; /* Palautetaan aiempi fonttikoko */
+    font-weight: normal; /* Ei liian paksu */
+    color: #fff; /* Vaalea teksti */
+    text-align: center;
+    padding: 10px 20px; /* Pieni pehmuste reunoille */
+    border-radius: 10px; /* Pehmeät reunat */
+    display: inline-block; /* Jotta tausta ei veny koko leveyteen */
+    background: rgba(0, 0, 0, 0.5); /* Tumma, osittain läpinäkyvä tausta */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Pehmeä varjostus */
+}
+
+
 .field-instruction { /* UUSI KÄYTTÄJÄ LOMAKE */
     font-size: 0.9rem;
     color: #666; /* Harmaa väri */
@@ -76,8 +89,8 @@ p {
 #searchInput {
     padding: 10px;
     font-size: 1.2rem;
-    width: 60%;
-    max-width: 500px;
+    width: 110% !important; /* Muuta tätä arvoa tarpeen mukaan */
+    max-width: 1100px; /* Kasvattaa tai pienentää */
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -87,7 +100,7 @@ p {
 }
 
 .button-container {
-    display: flex; /* Asettaa lapset riviin */
+    display: flex; /* Asettaa napit riviin */
     gap: 10px; /* Etäisyys nappien välillä */
     margin-top: 20px; /* Etäisyys yläelementeistä */
 }
@@ -115,14 +128,19 @@ button:hover {
     margin: 10px auto;
 }
 
+/* Footerin muokkaus */
 #footer {
-    position: absolute;
-    bottom: 20px;
+    position: fixed; /* Pitää footerin aina alhaalla */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Keskittää vaakasuunnassa */
     width: 100%;
     text-align: center;
     font-size: 0.9rem;
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5); /* Tumma tausta paremman näkyvyyden vuoksi */
+    padding: 10px;
 }
 
 /* UUSI!! Säännöt listan muotoilu*/
@@ -185,4 +203,20 @@ button:hover {
 
 .login-section a:hover {
     text-decoration: underline;
+}
+
+.google-btn {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.google-btn:hover {
+    background-color: #357ae8;
 }

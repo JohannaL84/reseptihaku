@@ -17,11 +17,18 @@
 
         <section class="login-section">
             <h2>Rekisteröidy</h2>
-            <form>
-                <input type="text" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
-                <input type="email" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
-                <input type="password" placeholder="Salasana (väh. 12 merkkiä, ks. tarkemmat ohjeet)" required>
-                <input type="password" placeholder="Vahvista salasana (kirjoita sama salasana)" required>
+            <form onsubmit="register(event)"> <!-- Kutsutaan register.js-tiedostoa -->
+                <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
+                <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
+                <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä, ks. tarkemmat ohjeet)" required>
+                <input type="password" id="confirmPassword" placeholder="Vahvista salasana (kirjoita sama salasana)" required>
+                
+                <!-- 🔹 Latausviesti -->
+                <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
+                
+                <!-- 🔹 Virheilmoitus -->
+                <p id="registerError" class="p2" style="color: red;"></p>
+
                 <div class="button-container">
                     <button type="submit">Rekisteröidy</button>
                     <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
@@ -30,8 +37,10 @@
         </section>
     </div>
 
-    <footer> <!-- Footer siirretty boksin ulkopuolelle -->
+    <footer> <!-- Footer -->
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </footer>
+
+    <script src="register.js"></script> <!-- Linkitetään rekisteröintilogiikka -->
 </body>
 </html>
