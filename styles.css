@@ -194,3 +194,19 @@ button:hover {
 .login-section a:hover {
     text-decoration: underline;
 }
+
+.google-btn {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.google-btn:hover {
+    background-color: #357ae8;
+}
