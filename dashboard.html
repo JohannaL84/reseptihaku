@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Käyttäjän hallintapaneeli</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background"></div> <!-- Taustakuva -->
+
+    <div class="content-box">
+        <header>
+            <h1>Tervetuloa, <span id="nickname">Käyttäjä</span>!</h1>
+            <img id="profile-image" src="default-profile.png" alt="Profiilikuva" class="profile-img">
+            <p class="p2">Tämä on henkilökohtainen hallintapaneelisi.</p>
+        </header>
+
+        <section class="dashboard-section">
+            <h2>Omat tiedot</h2>
+            <p><strong>Käyttäjätunnus:</strong> <span id="username"></span></p>
+            <p><strong>Sähköposti:</strong> <span id="email"></span></p>
+            <p><strong>Suoritetut haasteet:</strong> <span id="completedChallenges">0</span></p>
+            <p><strong>Pisteet:</strong> <span id="points">0</span></p>
+
+            <h3>Tallennetut reseptit:</h3>
+            <ul id="savedRecipes"></ul>
+
+            <button onclick="logout()">Kirjaudu ulos</button>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
+    </footer>
+
+    <script>
+        async function fetchUserData() {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("❌ Sinun täytyy kirjautua sisään!");
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:5000/api/auth/me", {
+                    method: "GET",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById("nickname").textContent = data.nickname || data.username;
+                    document.getElementById("username").textContent = data.username;
+                    document.getElementById("email").textContent = data.email;
+                    document.getElementById("completedChallenges").textContent = data.completedChallenges;
+                    document.getElementById("points").textContent = data.points;
+
+                    // Asetetaan profiilikuva
+                    document.getElementById("profile-image").src = data.profileImage || "default-profile.png";
+
+                    // Näytetään tallennetut reseptit
+                    const recipeList = document.getElementById("savedRecipes");
+                    recipeList.innerHTML = "";
+                    data.savedRecipes.forEach(recipe => {
+                        let li = document.createElement("li");
+                        li.textContent = recipe; // Oikeassa sovelluksessa tähän tulisi reseptin nimi
+                        recipeList.appendChild(li);
+                    });
+                } else {
+                    alert("❌ Istunto on vanhentunut. Kirjaudu uudelleen.");
+                    logout();
+                }
+            } catch (error) {
+                console.error("Virhe käyttäjätietojen haussa:", error);
+                logout();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "login.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchUserData);
+    </script>
+</body>
+</html>
