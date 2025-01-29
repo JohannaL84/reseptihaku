@@ -23,7 +23,11 @@
                 <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä, ks. tarkemmat ohjeet)" required>
                 <input type="password" id="confirmPassword" placeholder="Vahvista salasana (kirjoita sama salasana)" required>
                 
-                <p id="registerError" class="p2" style="color: red;"></p> <!-- Virheilmoitus -->
+                <!-- 🔹 Latausviesti -->
+                <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
+                
+                <!-- 🔹 Virheilmoitus -->
+                <p id="registerError" class="p2" style="color: red;"></p>
 
                 <div class="button-container">
                     <button type="submit">Rekisteröidy</button>
