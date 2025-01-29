@@ -12,34 +12,38 @@
     <div class="content-box"> <!-- Vaalea laatikko -->
         <header>
             <!-- Linkki etusivulle -->
-            <h1><a href="index2.html" id="homeLink">Ruokareseptihaku</a></h1>
+            <h1>Ruokareseptihaku</h1>
             
         </header>
 
         <!-- Käyttäjänimi -->
         <div class="boxText">
 
-        <h2>Käyttäjäprofiili</h2>
-            <p>Käyttäjänimi: <!-- Ei pysty näyttämään -->
-                <div id="profileUsername"></div>
+            <h2>Käyttäjäprofiili</h2>
+            <div class="p2">
+                <p class="p2">Käyttäjänimi: <!-- Ei pysty näyttämään -->
+                    <div id="profileUsername"></div>
+                    
+
+            <!-- Käyttäjän pisteet. Laskuri ei vielä toimi -->
+            <h3>Pisteet</h3>
+                <p id="userPoints">0</p>
+            
+            <!-- Luokka painikkeille, jotka tulee olla rivissä -->
+            <div class="button-container">
                 
+            <!-- Tähän käyttäjän omille resepteille painike Omat reseptit- sivulle. Sivua ei ole vielä -->
+            <button type="button" onclick="userResipes()"id="userRecipes">Omat reseptit</button>
 
-        
+            <!-- Takaisin etusivulle -->
+            <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
 
-        <!-- Käyttäjän pisteet. Laskuri ei vielä toimi -->
-        <h3>Pisteet</h3>
-            <p id="userPoints">0</p>
-
-        <!-- Tähän käyttäjän omille resepteille painike Omat reseptit- sivulle. Sivua ei ole vielä -->
-            <div id="userRecipes"></div>
-        <button onclick="userResipes()">Omat reseptit</button> 
-
-
-        <!-- Uloskirjautuminen -->
-        <button onclick="logout()">Kirjaudu ulos</button>
-
+            <!-- Uloskirjautuminen -->
+            <button type="button" onclick="logout()">Kirjaudu ulos</button>
+            </div>
         </div>
     </div>
+</div>
     <script>
          /*
         //const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
@@ -99,8 +103,8 @@
         */
     </script>
 
-    <footer> <!-- Footer siirretty boksin ulkopuolelle -->
+    <div id="footer">
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
-    </footer>
+    </div>
 </body>
 </html>
