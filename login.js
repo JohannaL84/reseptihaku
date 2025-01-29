@@ -39,7 +39,7 @@ async function login(event) {
             alert(`✅ Kirjauduttiin MongoDB:n kautta käyttäjänä: ${data.user.username}`);
             window.location.href = "dashboard.html";
         } else {
-            loginError.textContent = `❌ ${data.msg || "Kirjautuminen epäonnistui!"}`; // Näytetään virheilmoitus
+            loginError.textContent = `❌ ${data.msg || "Kirjautuminen epäonnistui!"}`;
         }
     } catch (error) {
         loginError.textContent = "❌ Palvelinvirhe! Tarkista verkkoyhteys.";
