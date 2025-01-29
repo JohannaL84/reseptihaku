@@ -18,7 +18,7 @@
         <section class="login-section">
             <h2>Kirjaudu</h2>
             <form onsubmit="login(event)"> <!-- Lomakkeen käsittely login.js-tiedostossa -->
-                <input type="text" id="username" placeholder="Käyttäjätunnus" required>
+                <input type="text" id="username" placeholder="Käyttäjätunnus tai sähköposti" required>
                 <input type="password" id="password" placeholder="Salasana" required>
                 <div class="button-container">
                     <button type="submit">Kirjaudu</button>
@@ -40,12 +40,12 @@
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </footer>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK Google-kirjautumista varten -->
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
 
     <script>
-        // 🔹 OMAT TIEDOT
+        // 🔹 Firebase-konfiguraatio (Google-kirjautuminen)
         const firebaseConfig = {
             apiKey: "AIzaSyAGE5QfzpVW_0hChXIY7FADwssb3rhcc9M",
             authDomain: "reseptijengi.firebaseapp.com",
@@ -59,7 +59,8 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 
-    <script src="login.js"></script> <!-- Linkitetään kirjautumislogiikka -->
-    <script src="google-login.js"></script> <!-- Linkitetään Google-kirjautumislogiikka -->
+    <!-- JavaScript-tiedostot -->
+    <script src="login.js"></script> <!-- Normaalin kirjautumisen logiikka -->
+    <script src="google-login.js"></script> <!-- Google-kirjautumisen logiikka -->
 </body>
 </html>
