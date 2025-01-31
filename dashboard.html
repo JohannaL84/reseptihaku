@@ -1,71 +1,91 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Käyttäjän hallintapaneeli</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Käyttäjän hallintapaneeli</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+</style>
 </head>
 <body>
-    <div class="background"></div> <!-- Taustakuva -->
-
+<div class="background"></div> <!-- Taustakuva -->
+ 
     <div class="content-box"> <!-- Vaalea laatikko -->
-        <header>
-            <h1>Tervetuloa, <span id="nickname">Käyttäjä</span>!</h1>
-            <img id="profile-image" src="default-profile.png" alt="Profiilikuva" class="profile-img">
-            <p class="p2">Tämä on henkilökohtainen hallintapaneelisi.</p>
-        </header>
-
+<header>
+<h1>Tervetuloa, <span id="nickname">Käyttäjä</span>!</h1>
+<img id="profile-image" src="default-profile.png" alt="Profiilikuva" class="profile-img">
+<p class="p2">Tämä on henkilökohtainen hallintapaneelisi.</p>
+</header>
+ 
         <!-- Käyttäjän tiedot -->
-        <section class="dashboard-section">
-            <h2>Omat tiedot</h2>
-            <p class="p2"><strong>Käyttäjätunnus:</strong> <span id="username"></span></p>
-            <p class="p2"><strong>Sähköposti:</strong> <span id="email"></span></p>
-            <p class="p2"><strong>Suoritetut haasteet:</strong> <span id="completedChallenges">0</span></p>
-            <p class="p2"><strong>Pisteet:</strong> <span id="points">0</span></p>
+<section class="dashboard-section">
+<h2>Omat tiedot</h2>
+<p class="p2"><strong>Käyttäjätunnus:</strong> <span id="username"></span></p>
+<p class="p2"><strong>Sähköposti:</strong> <span id="email"></span></p>
+<p class="p2"><strong>Suoritetut haasteet:</strong> <span id="completedChallenges">0</span></p>
+<p class="p2"><strong>Pisteet:</strong> <span id="points">0</span></p>
+ 
+            <!-- Tallennetut reseptit ja reseptin lisäystoiminto -->
+<h3 class="p2">Tallennetut reseptit:</h3>
+<ul id="savedRecipes"></ul>
+ 
+            <!-- Linkki reseptin lisäykseen -->
+<button id="addRecipeButton">Lisää oma resepti</button>
+ 
 
-            <!-- Käyttäjän reseptit -->
-            <p class="p2">Tallennetut reseptit:</p>
-            <ul id="savedRecipes"></ul>
-        </section>
-
+            <!-- Reseptin lisäyslomake (aluksi piilotettuna) -->
+<div id="addRecipeForm" style="display: none;">
+<h3>Lisää uusi resepti</h3>
+<input type="text" id="recipeName" placeholder="Reseptin nimi" required>
+<textarea id="recipeInstructions" placeholder="Kirjoita ohjeet tai ainekset" required></textarea>
+<button id="saveRecipeButton">Tallenna resepti</button>
+</div>
+</section>
+ 
         <!-- Toimintopainikkeet -->
-        <div class="button-container">
-            <button type="button" onclick="location.href='user_recipes.html'">Omat reseptit</button>
-            <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
-            <button type="button" onclick="logout()">Kirjaudu ulos</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
-    </footer>
+<div class="button-container">
+<button type="button" onclick="location.href='user_recipes.html'">Omat reseptit</button>
+<button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
+<button type="button" onclick="logout()">Kirjaudu ulos</button>
+</div>
+</div>
+ 
 
     <script>
         // Funktio käyttäjän tietojen hakemiseen paikallisesta tallennuksesta
         function fetchUserData() {
             const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
+ 
             if (!loggedInUser) {
-                alert("❌ Sinun täytyy kirjautua sisään!");
+                alert("\u274c Sinun täytyy kirjautua sisään!");
                 window.location.href = "login.html";
                 return;
             }
-
-            // Näytetään käyttäjätiedot
+ 
             document.getElementById("nickname").textContent = loggedInUser.nickname || loggedInUser.username;
             document.getElementById("username").textContent = loggedInUser.username;
             document.getElementById("email").textContent = loggedInUser.email || "Ei määritelty";
             document.getElementById("completedChallenges").textContent = loggedInUser.completedChallenges || 0;
             document.getElementById("points").textContent = loggedInUser.points || 0;
-
-            // Näytetään tallennetut reseptit
+ 
+            displaySavedRecipes(loggedInUser);
+        }
+ 
+        // Näytä tallennetut reseptit
+        function displaySavedRecipes(user) {
             const recipeList = document.getElementById("savedRecipes");
             recipeList.innerHTML = "";
-            if (loggedInUser.savedRecipes && loggedInUser.savedRecipes.length > 0) {
-                loggedInUser.savedRecipes.forEach(recipe => {
+            if (user.savedRecipes && user.savedRecipes.length > 0) {
+                user.savedRecipes.forEach(recipe => {
                     let li = document.createElement("li");
-                    li.textContent = recipe;
+                    li.textContent = recipe.name;
                     recipeList.appendChild(li);
                 });
             } else {
@@ -74,14 +94,53 @@
                 recipeList.appendChild(li);
             }
         }
-
+ 
+        // Näytä ja piilota reseptin lisäyslomake
+        document.getElementById("addRecipeButton").addEventListener("click", function() {
+            const form = document.getElementById("addRecipeForm");
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        });
+ 
+        // Tallenna uusi resepti
+        document.getElementById("saveRecipeButton").addEventListener("click", function() {
+            const recipeName = document.getElementById("recipeName").value;
+            const recipeInstructions = document.getElementById("recipeInstructions").value;
+ 
+            if (!recipeName || !recipeInstructions) {
+                alert("Täytä kaikki kentät ennen tallennusta.");
+                return;
+            }
+ 
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (!loggedInUser) return;
+ 
+            // Lisää uusi resepti käyttäjän tietoihin
+            loggedInUser.savedRecipes = loggedInUser.savedRecipes || [];
+            loggedInUser.savedRecipes.push({ name: recipeName, instructions: recipeInstructions });
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+ 
+            alert("Resepti tallennettu onnistuneesti!");
+ 
+            // Tyhjennä lomake ja piilota se
+            document.getElementById("recipeName").value = "";
+            document.getElementById("recipeInstructions").value = "";
+            document.getElementById("addRecipeForm").style.display = "none";
+ 
+            // Päivitä näkymä
+            displaySavedRecipes(loggedInUser);
+        });
+ 
         // Uloskirjautuminen
         function logout() {
             localStorage.removeItem("loggedInUser");
             window.location.href = "login.html";
         }
-
+ 
         document.addEventListener("DOMContentLoaded", fetchUserData);
-    </script>
+</script>
+
+<div id="footer">
+    <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
+</div>
 </body>
 </html>
