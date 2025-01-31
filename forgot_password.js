@@ -1,29 +1,35 @@
-document.getElementById("forgotPasswordForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    // Lisää tapahtumankuuntelija lomakkeelle
+    document.getElementById('forgot-password-form').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    const email = document.getElementById("resetEmail").value;
-    const resetMessage = document.getElementById("resetMessage");
-    resetMessage.textContent = ""; // Tyhjennetään vanhat viestit
+        // Nollataan mahdolliset aiemmat viestit
+        const errorElement = document.getElementById('forgotError');
+        const successMessage = document.getElementById('successMessage');
+        errorElement.textContent = '';
+        successMessage.style.display = 'none';
 
-    try {
-        const response = await fetch("http://localhost:5000/api/auth/forgot-password", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email })
-        });
+        // Haetaan sähköpostin syöte
+        const email = document.getElementById('forgotEmail').value;
 
-        const data = await response.json();
-        
-        if (response.ok) {
-            resetMessage.style.color = "green";
-            resetMessage.textContent = "✅ Palautuslinkki lähetetty sähköpostiisi!";
-        } else {
-            resetMessage.style.color = "red";
-            resetMessage.textContent = `❌ ${data.msg || "Jokin meni pieleen!"}`;
+        // Hae käyttäjä localStoragesta
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.email === email);
+
+        if (!user) {
+            // Näytetään virheviesti, jos käyttäjää ei löydy
+            errorElement.textContent = 'Sähköpostiosoitetta ei löydy.';
+            return;
         }
-    } catch (error) {
-        resetMessage.style.color = "red";
-        resetMessage.textContent = "❌ Palvelinvirhe! Tarkista verkkoyhteys.";
-        console.error("Reset password error:", error);
-    }
+
+        // Generoidaan satunnainen token ja tallennetaan se
+        const resetToken = Math.random().toString(36).substring(2, 15);
+        localStorage.setItem('passwordResetToken', JSON.stringify({ email, token: resetToken }));
+
+        // Näytetään onnistumisviesti
+        successMessage.style.display = 'block';
+
+        // Näytetään simuloitu palautuslinkki (tätä ei näytettäisi oikeassa sovelluksessa)
+        alert(`Palautuslinkki: reset_password.html?token=${resetToken}`);
+    });
 });

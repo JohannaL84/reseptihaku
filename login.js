@@ -1,48 +1,21 @@
-async function login(event) {
-    event.preventDefault(); // Estää lomakkeen uudelleenlatauksen
+// login.js: Käsittelee kirjautumisen
 
-    const usernameOrEmail = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const loginError = document.getElementById("loginError");
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    // 🔹 Jos käyttäjä on jo kirjautunut (localStorage-token)
-    if (localStorage.getItem("token")) {
-        alert("Olet jo kirjautunut!");
-        window.location.href = "dashboard.html";
-        return;
-    }
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-    // 🔹 Haetaan tallennetut käyttäjät localStoragesta
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const localUser = users.find(u => (u.username === usernameOrEmail || u.email === usernameOrEmail) && u.password === password);
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.username === username && u.password === password);
 
-    if (localUser) {
-        alert("✅ Kirjauduttiin localStoragesta!");
-        window.location.href = "dashboard.html";
-        return;
-    }
-
-    // 🔹 Yritetään kirjautua back-endin kautta MongoDB:stä
-    try {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ identifier: username, password }) // Käyttäjänimi tai sähköposti
-        });
-        
-
-        const data = await response.json();
-        
-        if (response.ok) {
-            localStorage.setItem("token", data.token); // Tallennetaan JWT-token
-            localStorage.setItem("user", JSON.stringify(data.user)); // Tallennetaan käyttäjätiedot
-            alert(`✅ Kirjauduttiin MongoDB:n kautta käyttäjänä: ${data.user.username}`);
-            window.location.href = "dashboard.html";
+        if (user) {
+            alert('Kirjauduit sisään onnistuneesti!');
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            window.location.href = 'dashboard.html';
         } else {
-            loginError.textContent = `❌ ${data.msg || "Kirjautuminen epäonnistui!"}`;
+            document.getElementById('loginError').textContent = 'Virheellinen käyttäjänimi tai salasana.';
         }
-    } catch (error) {
-        loginError.textContent = "❌ Palvelinvirhe! Tarkista verkkoyhteys.";
-        console.error("Login error:", error);
-    }
-}
+    });
+});

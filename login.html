@@ -17,15 +17,16 @@
 
         <section class="login-section">
             <h2>Kirjaudu</h2>
-            <form onsubmit="login(event)"> <!-- Lomakkeen käsittely login.js-tiedostossa -->
+            <form id="login-form">
                 <input type="text" id="username" placeholder="Käyttäjätunnus tai sähköposti" required>
                 <input type="password" id="password" placeholder="Salasana" required>
                 <div class="button-container">
                     <button type="submit">Kirjaudu</button>
                     <button type="button" onclick="location.href='register.html'">Luo uusi käyttäjä</button>
                 </div>
-                <p id="loginError" class="p2" style="color: red;"></p> <!-- Virheilmoitus -->
+                <p id="loginError" class="p2" style="color: red;"></p>
             </form>
+            
 
             <!-- Google-kirjautumisnappi -->
             <button type="button" onclick="googleLogin()" class="google-btn">

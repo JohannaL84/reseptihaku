@@ -1,59 +1,43 @@
-async function register(event) {
-    event.preventDefault(); // Estetään lomakkeen uudelleenlataus
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    const username = document.getElementById("newUsername").value;
-    const email = document.getElementById("newEmail").value;
-    const password = document.getElementById("newPassword").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const registerError = document.getElementById("registerError");
-    const loadingMessage = document.getElementById("loadingMessage");
+        const username = document.getElementById('newUsername').value;
+        const email = document.getElementById('newEmail').value;
+        const password = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorElement = document.getElementById('registerError');
+        const loadingMessage = document.getElementById('loadingMessage');
 
-    // Näytetään latausviesti
-    registerError.textContent = "";
-    loadingMessage.style.display = "block";
+        // Tyhjennetään virheilmoitus
+        errorElement.textContent = '';
 
-    // Tarkistetaan, että salasanat täsmäävät
-    if (password !== confirmPassword) {
-        loadingMessage.style.display = "none";
-        registerError.textContent = "❌ Salasanat eivät täsmää!";
-        return;
-    }
-
-    // Tarkistetaan käyttäjätunnuksen ja sähköpostin uniikkius LocalStoragessa
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    if (users.find(u => u.username === username || u.email === email)) {
-        loadingMessage.style.display = "none";
-        registerError.textContent = "❌ Käyttäjätunnus tai sähköposti on jo käytössä!";
-        return;
-    }
-
-    // Lähetetään tiedot back-endiin (MongoDB)
-    try {
-        const response = await fetch("http://localhost:5000/api/auth/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, email, password }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert("✅ Rekisteröinti onnistui! Kirjaudu sisään.");
-            window.location.href = "login.html"; // Ohjataan kirjautumissivulle
-        } else {
-            registerError.textContent = `❌ ${data.msg || "Rekisteröinti epäonnistui!"}`;
+        // Tarkista, että salasanat täsmäävät
+        if (password !== confirmPassword) {
+            errorElement.textContent = 'Salasanat eivät täsmää!';
+            return;
         }
-    } catch (error) {
-        console.error("Rekisteröinti epäonnistui:", error);
-        registerError.textContent = "❌ Palvelinvirhe! Tarkista verkkoyhteys.";
 
-        // Tallennetaan localStorageen, jos back-end ei vastaa (vain testikäyttöön)
-        users.push({ username, email, password });
-        localStorage.setItem("users", JSON.stringify(users));
+        // Näytä latausviesti
+        loadingMessage.style.display = 'block';
 
-        alert("⚠️ Palvelin ei vastaa! Käyttäjä tallennettu vain selaimen muistiin.");
-        window.location.href = "login.html";
-    } finally {
-        loadingMessage.style.display = "none"; // Piilotetaan latausviesti
-    }
-}
+        // Tarkista olemassa olevat käyttäjät
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        const existingUser = users.find(u => u.username === username || u.email === email);
+
+        if (existingUser) {
+            loadingMessage.style.display = 'none';
+            errorElement.textContent = 'Käyttäjänimi tai sähköposti on jo käytössä.';
+            return;
+        }
+
+        // Luo uusi käyttäjä ja tallenna se localStorageen
+        const newUser = { username, email, password };
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+
+        loadingMessage.style.display = 'none';
+        alert('Rekisteröinti onnistui! Voit nyt kirjautua sisään.');
+        window.location.href = 'login.html';
+    });
+});

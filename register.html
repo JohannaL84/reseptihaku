@@ -17,23 +17,21 @@
 
         <section class="login-section">
             <h2>Rekisteröidy</h2>
-            <form onsubmit="register(event)"> <!-- Kutsutaan register.js-tiedostoa -->
+            <form id="register-form">
                 <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
                 <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
-                <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä, ks. tarkemmat ohjeet)" required>
-                <input type="password" id="confirmPassword" placeholder="Vahvista salasana (kirjoita sama salasana)" required>
-                
-                <!-- 🔹 Latausviesti -->
+                <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required>
+                <input type="password" id="confirmPassword" placeholder="Vahvista salasana" required>
+            
                 <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
-                
-                <!-- 🔹 Virheilmoitus -->
                 <p id="registerError" class="p2" style="color: red;"></p>
-
+            
                 <div class="button-container">
                     <button type="submit">Rekisteröidy</button>
                     <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
                 </div>
             </form>
+            
         </section>
     </div>
 
