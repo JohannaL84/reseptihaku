@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisää oma resepti</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .add-recipe-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div> <!-- Taustakuva -->
+ 
+    <div class="content-box"> <!-- Vaalea laatikko -->
+        <header>
+            <h1>Lisää oma resepti</h1>
+            <p class="p2">Täytä tiedot ja tallenna resepti kokoelmaasi!</p>
+        </header>
+ 
+        <section class="add-recipe-section">
+            <form id="add-recipe-form">
+                <div class="form-group">
+                    <label for="recipeName" class="p2">Reseptin nimi:</label>
+                    <input type="text" id="recipeName" placeholder="Anna reseptin nimi" required>
+                </div>
+ 
+                <div class="form-group">
+                    <label for="recipeDuration" class="p2">Kesto:</label>
+                    <input type="text" id="recipeDuration" placeholder="Esim. 30 min" required>
+                </div>
+ 
+                <div class="form-group">
+                    <label for="recipeIngredients"class="p2" >Ainekset:</label>
+                    <textarea id="recipeIngredients" placeholder="Luettele ainekset" required></textarea>
+                </div>
+ 
+                <div class="form-group">
+                    <label for="recipeInstructions"class="p2" >Ohjeet:</label>
+                    <textarea id="recipeInstructions" placeholder="Kirjoita valmistusohjeet" required></textarea>
+                </div>
+ 
+                <button type="submit">Tallenna resepti</button>
+            </form>
+        </section>
+    </div>
+ 
+    <script>
+        document.getElementById('add-recipe-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+ 
+            const recipeName = document.getElementById('recipeName').value;
+            const recipeDuration = document.getElementById('recipeDuration').value;
+            const recipeIngredients = document.getElementById('recipeIngredients').value;
+            const recipeInstructions = document.getElementById('recipeInstructions').value;
+ 
+            if (!recipeName || !recipeDuration || !recipeIngredients || !recipeInstructions) {
+                alert('Täytä kaikki kentät ennen tallennusta.');
+                return;
+            }
+ 
+            const newRecipe = {
+                name: recipeName,
+                duration: recipeDuration,
+                ingredients: recipeIngredients,
+                instructions: recipeInstructions
+            };
+ 
+            // Hae nykyiset tallennetut reseptit tai alustetaan tyhjä lista
+            let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (!loggedInUser) {
+                alert('Sinun täytyy kirjautua sisään ennen reseptin tallennusta.');
+                window.location.href = 'login.html';
+                return;
+            }
+ 
+            loggedInUser.savedRecipes = loggedInUser.savedRecipes || [];
+            loggedInUser.savedRecipes.push(newRecipe);
+            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+ 
+            alert('Resepti tallennettu onnistuneesti!');
+ 
+            // Siirrytään dashboard-sivulle
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+
+    <div id="footer">
+        <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
+    </div>
+    
+</body>
+</html>
