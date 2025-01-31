@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
+const { sendResetEmail } = require("../config/emailService");
 const User = require("models/user.js");
 require("dotenv").config();
 
@@ -78,25 +78,9 @@ router.post("/forgot-password", async (req, res) => {
         if (!user) return res.status(404).json({ msg: "❌ Käyttäjää ei löydy!" });
 
         const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "15m" });
-        const resetLink = `http://localhost:3000/reset-password.html?token=${resetToken}`;
+        const resetLink = `${process.env.FRONTEND_URL}/reset-password.html?token=${resetToken}`;
 
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
-
-        await transporter.sendMail({
-            from: `"Ruokareseptihaku" <${process.env.EMAIL_USER}>`,
-            to: email,
-            subject: "🔑 Salasanan palautus",
-            html: `<p>Hei ${user.username},</p>
-                   <p>Voit palauttaa salasanasi klikkaamalla alla olevaa linkkiä:</p>
-                   <a href="${resetLink}">${resetLink}</a>
-                   <p>Terveisin,<br>Ruokareseptihaku-tiimi</p>`
-        });
+        await sendResetEmail(email, user.username, resetLink);
 
         res.json({ msg: "✅ Salasanan palautuslinkki lähetetty sähköpostiisi!" });
     } catch (error) {
@@ -110,9 +94,14 @@ router.post("/reset-password", async (req, res) => {
     try {
         const { token, newPassword } = req.body;
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.userId);
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            return res.status(400).json({ msg: "❌ Vanhentunut tai virheellinen palautuslinkki!" });
+        }
 
+        const user = await User.findById(decoded.userId);
         if (!user) return res.status(404).json({ msg: "❌ Käyttäjää ei löydy!" });
 
         const salt = await bcrypt.genSalt(10);
