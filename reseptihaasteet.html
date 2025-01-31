@@ -14,13 +14,97 @@
             <h1>Reseptihaaste</h1>
             <p class="p2">Haasta muut käyttäjät reseptihaasteen kautta ja kerää pisteitä!</p>
         </header>
-            <section>
-                
-            </section>
-        </div>
-    
-    <footer> <!-- Footer siirretty boksin ulkopuolelle -->
+
+        <!-- Haasteiden lista -->
+        <section>
+            <h2>Aktiiviset haasteet</h2>
+            <ul id="activeChallenges"></ul>
+        </section>
+
+        <!-- Käyttäjän pisteet (näkyy vain kirjautuneille käyttäjille) -->
+        <section id="pointsSection" style="display: none;">
+            <h2>Omat pisteet</h2>
+            <p><strong>Pisteet:</strong> <span id="points">0</span></p>
+        </section>
+    </div>
+
+    <footer>
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </footer>
+
+    <script>
+        const activeChallengesKey = "activeChallenges";
+        const userKey = "loggedInUser";
+
+        // Tarkista, onko käyttäjä kirjautunut sisään
+        function isUserLoggedIn() {
+            return JSON.parse(localStorage.getItem(userKey)) !== null;
+        }
+
+        // Näytä haasteet
+        function displayChallenges() {
+            const activeChallenges = JSON.parse(localStorage.getItem(activeChallengesKey)) || [];
+            const challengeList = document.getElementById("activeChallenges");
+            challengeList.innerHTML = "";
+
+            activeChallenges.forEach(challenge => {
+                let li = document.createElement("li");
+                li.textContent = challenge.title + " - " + challenge.description;
+
+                // Lisää suorituspainike, jos käyttäjä on kirjautunut
+                if (isUserLoggedIn()) {
+                    li.appendChild(createCompleteButton(challenge));
+                }
+
+                challengeList.appendChild(li);
+            });
+
+            // Näytä pisteosio, jos käyttäjä on kirjautunut
+            if (isUserLoggedIn()) {
+                displayUserPoints();
+                document.getElementById("pointsSection").style.display = "block";
+            }
+        }
+
+        // Luo "Merkitse suoritetuksi" -painike
+        function createCompleteButton(challenge) {
+            const button = document.createElement("button");
+            button.textContent = "Merkitse suoritetuksi";
+            button.addEventListener("click", function() {
+                completeChallenge(challenge);
+            });
+            return button;
+        }
+
+        // Merkitse haaste suoritetuksi ja lisää piste
+        function completeChallenge(challenge) {
+            const loggedInUser = JSON.parse(localStorage.getItem(userKey));
+            if (!loggedInUser) return;
+
+            // Päivitetään suoritetut haasteet ja pisteet
+            loggedInUser.completedChallenges = loggedInUser.completedChallenges || [];
+            if (!loggedInUser.completedChallenges.includes(challenge.title)) {
+                loggedInUser.completedChallenges.push(challenge.title);
+                loggedInUser.points = (loggedInUser.points || 0) + 1;
+                localStorage.setItem(userKey, JSON.stringify(loggedInUser));
+                alert(`Haaste "${challenge.title}" suoritettu!`);
+                displayUserPoints();
+            } else {
+                alert("Olet jo suorittanut tämän haasteen.");
+            }
+        }
+
+        // Näytä käyttäjän pisteet
+        function displayUserPoints() {
+            const loggedInUser = JSON.parse(localStorage.getItem(userKey));
+            if (loggedInUser) {
+                document.getElementById("points").textContent = loggedInUser.points || 0;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            displayChallenges();
+        });
+    </script>
 </body>
 </html>
