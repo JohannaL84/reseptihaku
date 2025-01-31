@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omat tiedot</title>
+    <title>Käyttäjän hallintapaneeli</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,100 +11,77 @@
 
     <div class="content-box"> <!-- Vaalea laatikko -->
         <header>
-            <!-- Linkki etusivulle -->
-            <h1>Ruokareseptihaku</h1>
-            
+            <h1>Tervetuloa, <span id="nickname">Käyttäjä</span>!</h1>
+            <img id="profile-image" src="default-profile.png" alt="Profiilikuva" class="profile-img">
+            <p class="p2">Tämä on henkilökohtainen hallintapaneelisi.</p>
         </header>
 
-        <!-- Käyttäjänimi -->
-        <div class="boxText">
+        <!-- Käyttäjän tiedot -->
+        <section class="dashboard-section">
+            <h2>Omat tiedot</h2>
+            <p class="p2"><strong>Käyttäjätunnus:</strong> <span id="username"></span></p>
+            <p class="p2"><strong>Sähköposti:</strong> <span id="email"></span></p>
+            <p class="p2"><strong>Suoritetut haasteet:</strong> <span id="completedChallenges">0</span></p>
+            <p class="p2"><strong>Pisteet:</strong> <span id="points">0</span></p>
 
-            <h2>Käyttäjäprofiili</h2>
-            <div class="p2">
-                <p class="p2">Käyttäjänimi: <!-- Ei pysty näyttämään -->
-                    <div id="profileUsername"></div>
-                    
+            <!-- Käyttäjän reseptit -->
+            <p class="p2">Tallennetut reseptit:</p>
+            <ul id="savedRecipes"></ul>
+        </section>
 
-            <!-- Käyttäjän pisteet. Laskuri ei vielä toimi -->
-            <h3>Pisteet</h3>
-                <p id="userPoints">0</p>
-            
-            <!-- Luokka painikkeille, jotka tulee olla rivissä -->
-            <div class="button-container">
-                
-            <!-- Tähän käyttäjän omille resepteille painike Omat reseptit- sivulle. Sivua ei ole vielä -->
-            <button type="button" onclick="userResipes()"id="userRecipes">Omat reseptit</button>
-
-            <!-- Takaisin etusivulle -->
+        <!-- Toimintopainikkeet -->
+        <div class="button-container">
+            <button type="button" onclick="location.href='user_recipes.html'">Omat reseptit</button>
             <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
-
-            <!-- Uloskirjautuminen -->
             <button type="button" onclick="logout()">Kirjaudu ulos</button>
-            </div>
         </div>
     </div>
-</div>
-    <script>
-         /*
-        //const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
 
-        function logout() {
-            window.location.href = 'index.html';
-        }
-        // Näyttää profiilin
-        function showUserProfile() {
-            const username = localStorage.getItem('username');
-            document.getElementById('profileUsername').innerText = username;
-
-        }
-        // Laskee pisteet
-        function showUserPoints() {
-            const points = localStorage.getItem('points');
-            document.getElementById('userPoints').innerText = points;
-
-        }
-
-        let userRecipes = [];
-
-        // Näyttää käyttäjän omat reseptit
-        function showUserRecipes() {
-            const newRecipes = document.getElementById('newRecipes');
-            newRecipes.innerHTML = results.map(recipe => 
-                `<h2>${recipe.name}</h2>
-                <p>${recipe.instructions}<button onclick="poista(${index})">Poista</button></p>` // Tästä tehtävä painike etusivulle
-                
-            ).join("");
-                
-               
-                `
-                    <h4>${recipe.name}</h4>
-                    <img src="${recipe.thumbnail}" alt="${recipe.name}" width="100">
-                    <p>${recipe.instructions}</p>
-                `;
-                userRecipes.appendChild(recipe);
-                
-            };
-        
-        // Poistaa oman reseptin
-        function removeOwnRecipe(index) {
-            userRecipes.splice(index, 1);
-            showUserRecipes();
-        }
-        
-        // Järjestää omat reseptit
-        function shortOwnRecipe() {
-            userRecipes.sort();
-            showUserRecipes();
-            
-        }
-        
-                   
-        showUserProfile();
-        */
-    </script>
-
-    <div id="footer">
+    <footer>
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
-    </div>
+    </footer>
+
+    <script>
+        // Funktio käyttäjän tietojen hakemiseen paikallisesta tallennuksesta
+        function fetchUserData() {
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+            if (!loggedInUser) {
+                alert("❌ Sinun täytyy kirjautua sisään!");
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Näytetään käyttäjätiedot
+            document.getElementById("nickname").textContent = loggedInUser.nickname || loggedInUser.username;
+            document.getElementById("username").textContent = loggedInUser.username;
+            document.getElementById("email").textContent = loggedInUser.email || "Ei määritelty";
+            document.getElementById("completedChallenges").textContent = loggedInUser.completedChallenges || 0;
+            document.getElementById("points").textContent = loggedInUser.points || 0;
+
+            // Näytetään tallennetut reseptit
+            const recipeList = document.getElementById("savedRecipes");
+            recipeList.innerHTML = "";
+            if (loggedInUser.savedRecipes && loggedInUser.savedRecipes.length > 0) {
+                loggedInUser.savedRecipes.forEach(recipe => {
+                    let li = document.createElement("li");
+                    li.textContent = recipe;
+                    recipeList.appendChild(li);
+                });
+            } else {
+                let li = document.createElement("li");
+                li.textContent = "Ei tallennettuja reseptejä.";
+                recipeList.appendChild(li);
+            }
+        }
+
+        // Uloskirjautuminen
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchUserData);
+    </script>
 </body>
 </html>

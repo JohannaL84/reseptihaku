@@ -58,6 +58,12 @@ p {
     color: #333; /* Tumma harmaa väri TÄMÄ P2 LÖYTYY MM. UNOHTUNTU SALASANA OSIOSTA*/
 }
 
+.p3 { 
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #333; /* Tumma harmaa väri TÄMÄ P3 LÖYTYY DASHBOARD*/
+}
+
 .p12 {
     font-size: 1.2rem; /* Palautetaan aiempi fonttikoko */
     font-weight: normal; /* Ei liian paksu */
