@@ -14,13 +14,15 @@
     <!-- Lyhyt kuvaus -->
     <p class="p12">Etsi, jaa, kokeile ja haasta ystäviä tekemään herkullisia reseptejä vaivattomasti!</p>
 
-
     <!-- Hakukenttä -->
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
-        <button onclick="searchRecipes()">Hae</button>
+        <button id="searchButton">Hae</button>
     </div>
     
+    <!-- Tulosten näyttöalue -->
+    <div id="resultsContainer"></div>
+
     <!-- Lyhyt oranssi viiva -->
     <div class="divider"></div>
 
@@ -34,5 +36,8 @@
     <div id="footer">
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </div>
+
+    <!-- Linkitetään hakutoiminnallisuuden JavaScript-tiedosto -->
+    <script src="search.js"></script>
 </body>
 </html>
