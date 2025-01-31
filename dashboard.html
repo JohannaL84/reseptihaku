@@ -35,52 +35,45 @@
     </footer>
 
     <script>
-        async function fetchUserData() {
-            const token = localStorage.getItem("token");
-            if (!token) {
+        // Funktio käyttäjän tietojen hakemiseen paikallisesta tallennuksesta
+        function fetchUserData() {
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+            if (!loggedInUser) {
                 alert("❌ Sinun täytyy kirjautua sisään!");
                 window.location.href = "login.html";
                 return;
             }
 
-            try {
-                const response = await fetch("http://localhost:5000/api/auth/me", {
-                    method: "GET",
-                    headers: { "Authorization": `Bearer ${token}` }
+            // Näytetään käyttäjätiedot dashboardilla
+            document.getElementById("nickname").textContent = loggedInUser.nickname || loggedInUser.username;
+            document.getElementById("username").textContent = loggedInUser.username;
+            document.getElementById("email").textContent = loggedInUser.email || "Ei määritelty";
+            document.getElementById("completedChallenges").textContent = loggedInUser.completedChallenges || 0;
+            document.getElementById("points").textContent = loggedInUser.points || 0;
+
+            // Asetetaan profiilikuva, jos se on määritelty
+            document.getElementById("profile-image").src = loggedInUser.profileImage || "default-profile.png";
+
+            // Näytetään tallennetut reseptit
+            const recipeList = document.getElementById("savedRecipes");
+            recipeList.innerHTML = "";
+            if (loggedInUser.savedRecipes && loggedInUser.savedRecipes.length > 0) {
+                loggedInUser.savedRecipes.forEach(recipe => {
+                    let li = document.createElement("li");
+                    li.textContent = recipe; // Voit laajentaa näyttämään reseptin tiedot
+                    recipeList.appendChild(li);
                 });
-
-                const data = await response.json();
-                if (response.ok) {
-                    document.getElementById("nickname").textContent = data.nickname || data.username;
-                    document.getElementById("username").textContent = data.username;
-                    document.getElementById("email").textContent = data.email;
-                    document.getElementById("completedChallenges").textContent = data.completedChallenges;
-                    document.getElementById("points").textContent = data.points;
-
-                    // Asetetaan profiilikuva
-                    document.getElementById("profile-image").src = data.profileImage || "default-profile.png";
-
-                    // Näytetään tallennetut reseptit
-                    const recipeList = document.getElementById("savedRecipes");
-                    recipeList.innerHTML = "";
-                    data.savedRecipes.forEach(recipe => {
-                        let li = document.createElement("li");
-                        li.textContent = recipe; // Oikeassa sovelluksessa tähän tulisi reseptin nimi
-                        recipeList.appendChild(li);
-                    });
-                } else {
-                    alert("❌ Istunto on vanhentunut. Kirjaudu uudelleen.");
-                    logout();
-                }
-            } catch (error) {
-                console.error("Virhe käyttäjätietojen haussa:", error);
-                logout();
+            } else {
+                let li = document.createElement("li");
+                li.textContent = "Ei tallennettuja reseptejä.";
+                recipeList.appendChild(li);
             }
         }
 
+        // Uloskirjautumisfunktio
         function logout() {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
+            localStorage.removeItem("loggedInUser");
             window.location.href = "login.html";
         }
 
