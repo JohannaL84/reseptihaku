@@ -5,6 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Randomruoat</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .recipe-display {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .recipe-display h2 {
+            font-size: 2rem;
+            color: #ff6600;
+        }
+
+        .recipe-display p {
+            font-size: 1.2rem;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .recipe-display a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-display a:hover {
+            background-color: #ff5500;
+        }
+    </style>
 </head>
 <body>
     <div class="background"></div> <!-- Taustakuva -->
@@ -14,13 +47,76 @@
             <h1>Randomruoat</h1>
             <p class="p2">Etkö tiedä mitä tänään kokkaisit? Anna sivuston päättää se puolestasi!</p>
         </header>
-            <section>
-                
-            </section>
-        </div>
+
+        <section class="recipe-display" id="recipeDisplay">
+            <p>Ladataan satunnaista reseptiä...</p>
+        </section>
+    </div>
     
-    <footer> <!-- Footer siirretty boksin ulkopuolelle -->
+    <footer> <!-- Footer -->
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const API_URL = 'https://api.spoonacular.com/recipes/random';
+            const API_KEY = 'd451e3d4e29b4796b9fa627c0c18a6ff';
+
+            const localRecipes = [
+                {
+                    name: 'Kasvispasta',
+                    description: 'Herkullinen kasvispasta, jossa on paljon kasviksia.',
+                    link: 'resepti.html?id=1',
+                    external: false
+                },
+                {
+                    name: 'Marjapiirakka',
+                    description: 'Maukas piirakka tuoreista marjoista.',
+                    link: 'resepti.html?id=2',
+                    external: false
+                }
+            ];
+
+            function getRandomRecipe() {
+                const recipeDisplay = document.getElementById('recipeDisplay');
+
+                // Arvotaan lähde
+                if (Math.random() < 0.5 && localRecipes.length > 0) {
+                    // Valitse satunnainen paikallinen resepti
+                    const randomLocalRecipe = localRecipes[Math.floor(Math.random() * localRecipes.length)];
+                    displayRecipe(randomLocalRecipe);
+                } else {
+                    // Hae satunnainen resepti API:sta
+                    fetch(`${API_URL}?apiKey=${API_KEY}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const recipe = data.recipes[0];
+                            const randomApiRecipe = {
+                                name: recipe.title,
+                                description: 'Katso tarkemmat ohjeet reseptisivulta.',
+                                link: `https://spoonacular.com/recipes/${recipe.title.replace(/ /g, '-').toLowerCase()}-${recipe.id}`,
+                                external: true
+                            };
+                            displayRecipe(randomApiRecipe);
+                        })
+                        .catch(error => {
+                            console.error('Virhe haun aikana:', error);
+                            recipeDisplay.innerHTML = '<p>Virhe reseptin haussa. Yritä uudelleen myöhemmin.</p>';
+                        });
+                }
+            }
+
+            function displayRecipe(recipe) {
+                const recipeDisplay = document.getElementById('recipeDisplay');
+                recipeDisplay.innerHTML = `
+                    <h2>${recipe.name}</h2>
+                    <p>${recipe.description}</p>
+                    <a href="${recipe.link}" target="${recipe.external ? '_blank' : '_self'}">Katso resepti</a>
+                `;
+            }
+
+            getRandomRecipe();
+        });
+    </script>
 </body>
 </html>

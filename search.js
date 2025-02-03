@@ -5,9 +5,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // API-konfiguraatio
     const API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
-    const API_KEY = 'd451e3d4e29b4796b9fa627c0c18a6ff';  // Vaihda tähän Spoonacularin API-avaimesi
+    const API_KEY = 'd451e3d4e29b4796b9fa627c0c18a6ff';
 
-    // Mock-tietokanta kaikille järjestelmän sisäisille resepteille
+    // Käännöstaulukko
+    const translationDictionary = {
+        'kana': 'chicken',
+        'kala': 'fish',
+        'liha': 'meat',
+        'sieni': 'mushroom',
+        'peruna': 'potato',
+        'maito': 'milk',
+        'pasta': 'pasta'
+    };
+
     const systemRecipes = [
         {
             name: 'Kasvispasta',
@@ -25,18 +35,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // Haetaan käyttäjän tallennetut reseptit localStoragesta
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
     const userRecipes = loggedInUser.savedRecipes || [];
 
-    // Hakutoiminto
     searchButton.addEventListener('click', function() {
-        const query = searchInput.value.toLowerCase().trim();
+        let query = searchInput.value.toLowerCase().trim();
         resultsContainer.innerHTML = '';
 
         if (!query) {
             resultsContainer.innerHTML = '<p>Anna hakusana.</p>';
             return;
+        }
+
+        // Tarkista, onko hakusana käännöstaulukossa
+        if (translationDictionary[query]) {
+            query = translationDictionary[query];
         }
 
         // Suodata käyttäjän ja järjestelmän reseptit
@@ -52,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                // Spoonacularin hakutulokset
                 const matchedOpenSourceRecipes = data.results.map(recipe => ({
                     title: recipe.title,
                     description: 'Katso tarkemmat ohjeet linkistä.',
@@ -61,14 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     external: true
                 }));
 
-                // Yhdistetään kaikki tulokset
-                const allResults = [
-                    ...matchedUserRecipes,
-                    ...matchedSystemRecipes,
-                    ...matchedOpenSourceRecipes
-                ];
+                const allResults = [...matchedUserRecipes, ...matchedSystemRecipes, ...matchedOpenSourceRecipes];
 
-                // Näytetään tulokset
                 if (allResults.length === 0) {
                     resultsContainer.innerHTML = '<p>Ei löytynyt reseptejä hakusanalla.</p>';
                 } else {
