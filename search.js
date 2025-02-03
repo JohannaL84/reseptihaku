@@ -5,9 +5,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mock-tietokanta avoimista resepteistä
     const openSourceRecipes = [
-        { title: 'Kasvispasta', description: 'Herkullinen kasvispasta.', ingredients: ['pasta', 'kasvikset'] },
-        { title: 'Tomaattikeitto', description: 'Täyteläinen tomaattikeitto.', ingredients: ['tomaatti', 'kerma'] }
+        { 
+            title: 'Kasvispasta', 
+            description: 'Herkullinen kasvispasta, jossa on paljon kasviksia.', 
+            ingredients: ['pasta', 'kasvikset'], 
+            link: 'https://www.example.com/kasvispasta',
+            external: true
+        },
+        { 
+            title: 'Tomaattikeitto', 
+            description: 'Täyteläinen tomaattikeitto kermalla.', 
+            ingredients: ['tomaatti', 'kerma'], 
+            link: 'https://www.example.com/tomaattikeitto',
+            external: true
+        }
     ];
+
+    // Haetaan tallennetut käyttäjän reseptit localStoragesta
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
+    const userRecipes = loggedInUser.savedRecipes || [];
 
     // Hakutoiminto
     searchButton.addEventListener('click', function() {
@@ -19,16 +35,16 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Hae käyttäjän tallentamat reseptit localStoragesta
-        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
-        const userRecipes = loggedInUser.savedRecipes || [];
+        // Suodatetaan hakutulokset
         const matchedUserRecipes = userRecipes.filter(recipe => recipe.name.toLowerCase().includes(query));
+        const matchedOpenSourceRecipes = openSourceRecipes.filter(recipe => 
+            recipe.title.toLowerCase().includes(query) || 
+            recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(query))
+        );
 
-        // Hae avoimet reseptit
-        const matchedOpenSourceRecipes = openSourceRecipes.filter(recipe => recipe.title.toLowerCase().includes(query));
-
-        // Näytä hakutulokset
         const allResults = [...matchedUserRecipes, ...matchedOpenSourceRecipes];
+
+        // Näytetään tulokset
         if (allResults.length === 0) {
             resultsContainer.innerHTML = '<p>Ei löytynyt reseptejä hakusanalla.</p>';
         } else {
@@ -36,10 +52,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 const recipeElement = document.createElement('div');
                 recipeElement.classList.add('recipe-card');
                 recipeElement.innerHTML = `
-                    <h3>${recipe.title}</h3>
+                    <h3>${recipe.name || recipe.title}</h3>
                     <p>${recipe.description || 'Ei kuvausta saatavilla.'}</p>
                     <p><strong>Ainekset:</strong> ${recipe.ingredients ? recipe.ingredients.join(', ') : 'Ei aineksia määritelty.'}</p>
                 `;
+
+                // Lisätään klikkaustoiminto kortille
+                recipeElement.addEventListener('click', function() {
+                    if (recipe.external) {
+                        // Ulkoinen resepti - avaa linkki uuteen ikkunaan
+                        window.open(recipe.link, '_blank');
+                    } else {
+                        // Sisäinen resepti - ohjaa reseptisivulle
+                        localStorage.setItem('currentRecipe', JSON.stringify(recipe));
+                        window.location.href = 'resepti.html';
+                    }
+                });
+
                 resultsContainer.appendChild(recipeElement);
             });
         }
