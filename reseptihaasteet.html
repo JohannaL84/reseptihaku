@@ -5,12 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reseptihaaste</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        h1 {
+            font-size: 3rem;
+            color: #ff6600;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .p2 {
+            font-size: 1.3rem;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        section {
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #ff6600;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: circle;
+            margin: 20px auto;
+            padding: 0;
+            max-width: 600px;
+            color: #444;
+            font-size: 1.2rem;
+            text-align: left;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            color: #007bff;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        }
+    </style>
 </head>
 <body>
     <div class="background"></div> <!-- Taustakuva -->
 
- <!-- Kiinteä takaisin-painike -->
- <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
+    <!-- Kiinteä takaisin-painike -->
+    <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
 
     <div class="content-box"> <!-- Vaalea laatikko -->
         <header>
@@ -22,6 +105,9 @@
         <section>
             <h2>Aktiiviset haasteet</h2>
             <ul id="activeChallenges"></ul>
+
+            <h2>Menneet haasteet</h2>
+            <ul id="pastChallenges"></ul>
         </section>
 
         <!-- Käyttäjän pisteet (näkyy vain kirjautuneille käyttäjille) -->
@@ -37,67 +123,62 @@
 
     <script>
         const activeChallengesKey = "activeChallenges";
+        const pastChallengesKey = "pastChallenges";
         const userKey = "loggedInUser";
 
-        // Tarkista, onko käyttäjä kirjautunut sisään
+        // Mock-haasteet
+        const mockActiveChallenges = [
+            { title: "Kasvisruokahaaste", description: "Valmista herkullinen kasvisruoka!" },
+            { title: "Kolmen ruokalajin illallinen", description: "Suunnittele ja toteuta illallinen alkuruoasta jälkiruokaan." },
+            { title: "Jälkiruokahaaste", description: "Leivo tai valmista jälkiruoka ja jaa se muille!" }
+        ];
+
+        const mockPastChallenges = [
+            { title: "Päivän smoothie", description: "Kokeile uusia makuyhdistelmiä smoothiessa." },
+            { title: "Keittohaaste", description: "Valmista keitto käyttäen sesongin kasviksia." }
+        ];
+
+        if (!localStorage.getItem(activeChallengesKey)) {
+            localStorage.setItem(activeChallengesKey, JSON.stringify(mockActiveChallenges));
+        }
+        if (!localStorage.getItem(pastChallengesKey)) {
+            localStorage.setItem(pastChallengesKey, JSON.stringify(mockPastChallenges));
+        }
+
         function isUserLoggedIn() {
             return JSON.parse(localStorage.getItem(userKey)) !== null;
         }
 
-        // Näytä haasteet
         function displayChallenges() {
             const activeChallenges = JSON.parse(localStorage.getItem(activeChallengesKey)) || [];
-            const challengeList = document.getElementById("activeChallenges");
-            challengeList.innerHTML = "";
+            const pastChallenges = JSON.parse(localStorage.getItem(pastChallengesKey)) || [];
+            const activeList = document.getElementById("activeChallenges");
+            const pastList = document.getElementById("pastChallenges");
 
+            activeList.innerHTML = "";
             activeChallenges.forEach(challenge => {
                 let li = document.createElement("li");
-                li.textContent = challenge.title + " - " + challenge.description;
-
-                // Lisää suorituspainike, jos käyttäjä on kirjautunut
-                if (isUserLoggedIn()) {
-                    li.appendChild(createCompleteButton(challenge));
-                }
-
-                challengeList.appendChild(li);
+                li.textContent = `${challenge.title} - ${challenge.description}`;
+                let link = document.createElement("a");
+                link.href = "haaste.html";
+                link.textContent = "Siirry haasteeseen";
+                li.appendChild(link);
+                activeList.appendChild(li);
             });
 
-            // Näytä pisteosio, jos käyttäjä on kirjautunut
+            pastList.innerHTML = "";
+            pastChallenges.forEach(challenge => {
+                let li = document.createElement("li");
+                li.textContent = `${challenge.title} - ${challenge.description}`;
+                pastList.appendChild(li);
+            });
+
             if (isUserLoggedIn()) {
                 displayUserPoints();
                 document.getElementById("pointsSection").style.display = "block";
             }
         }
 
-        // Luo "Merkitse suoritetuksi" -painike
-        function createCompleteButton(challenge) {
-            const button = document.createElement("button");
-            button.textContent = "Merkitse suoritetuksi";
-            button.addEventListener("click", function() {
-                completeChallenge(challenge);
-            });
-            return button;
-        }
-
-        // Merkitse haaste suoritetuksi ja lisää piste
-        function completeChallenge(challenge) {
-            const loggedInUser = JSON.parse(localStorage.getItem(userKey));
-            if (!loggedInUser) return;
-
-            // Päivitetään suoritetut haasteet ja pisteet
-            loggedInUser.completedChallenges = loggedInUser.completedChallenges || [];
-            if (!loggedInUser.completedChallenges.includes(challenge.title)) {
-                loggedInUser.completedChallenges.push(challenge.title);
-                loggedInUser.points = (loggedInUser.points || 0) + 1;
-                localStorage.setItem(userKey, JSON.stringify(loggedInUser));
-                alert(`Haaste "${challenge.title}" suoritettu!`);
-                displayUserPoints();
-            } else {
-                alert("Olet jo suorittanut tämän haasteen.");
-            }
-        }
-
-        // Näytä käyttäjän pisteet
         function displayUserPoints() {
             const loggedInUser = JSON.parse(localStorage.getItem(userKey));
             if (loggedInUser) {
@@ -105,9 +186,7 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            displayChallenges();
-        });
+        document.addEventListener("DOMContentLoaded", displayChallenges);
     </script>
 </body>
 </html>

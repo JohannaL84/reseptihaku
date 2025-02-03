@@ -241,18 +241,46 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 .recipe-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 15px;
+    padding: 20px;
     margin: 10px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: left;
+}
+
+.recipe-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ff6600;
+}
+
+.recipe-card p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.recipe-card a {
+    font-size: 1rem;
+    color: #ff6600;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.recipe-card a:hover {
+    text-decoration: underline;
 }
 
 .recipe-card:hover {
-    background-color: #ffe5b4;
+    background-color: #fff5e6;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 #resultsContainer {
@@ -264,4 +292,11 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pehmeä varjo */
+}
+
+.results-message {
+    color: #333; /* Tumma teksti, joka näkyy vaalealla taustalla */
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 10px 0;
 }

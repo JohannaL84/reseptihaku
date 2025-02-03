@@ -42,8 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let query = searchInput.value.toLowerCase().trim();
         resultsContainer.innerHTML = '';
 
+        // Tarkistetaan, onko hakukenttä tyhjä
         if (!query) {
-            resultsContainer.innerHTML = '<p>Anna hakusana.</p>';
+            resultsContainer.innerHTML = '<p class="results-message">Kokeile hakea uudestaan kirjoittamalla hakusana.</p>';
             return;
         }
 
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const allResults = [...matchedUserRecipes, ...matchedSystemRecipes, ...matchedOpenSourceRecipes];
 
                 if (allResults.length === 0) {
-                    resultsContainer.innerHTML = '<p>Ei löytynyt reseptejä hakusanalla.</p>';
+                    resultsContainer.innerHTML = '<p>Ei löytynyt reseptejä hakusanalla. Kokeile toista hakusanaa.</p>';
                 } else {
                     allResults.forEach(recipe => {
                         const recipeElement = document.createElement('div');
