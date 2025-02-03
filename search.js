@@ -20,8 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Hae käyttäjän tallentamat reseptit localStoragesta
-        const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
-        const matchedUserRecipes = userRecipes.filter(recipe => recipe.title.toLowerCase().includes(query));
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
+        const userRecipes = loggedInUser.savedRecipes || [];
+        const matchedUserRecipes = userRecipes.filter(recipe => recipe.name.toLowerCase().includes(query));
 
         // Hae avoimet reseptit
         const matchedOpenSourceRecipes = openSourceRecipes.filter(recipe => recipe.title.toLowerCase().includes(query));
@@ -36,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 recipeElement.classList.add('recipe-card');
                 recipeElement.innerHTML = `
                     <h3>${recipe.title}</h3>
-                    <p>${recipe.description}</p>
-                    <p><strong>Ainekset:</strong> ${recipe.ingredients.join(', ')}</p>
+                    <p>${recipe.description || 'Ei kuvausta saatavilla.'}</p>
+                    <p><strong>Ainekset:</strong> ${recipe.ingredients ? recipe.ingredients.join(', ') : 'Ei aineksia määritelty.'}</p>
                 `;
                 resultsContainer.appendChild(recipeElement);
             });
