@@ -240,6 +240,7 @@ button:hover {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .recipe-card {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -252,4 +253,15 @@ button:hover {
 
 .recipe-card:hover {
     background-color: #ffe5b4;
+}
+
+#resultsContainer {
+    max-height: 60vh; /* Rajaa tuloslaatikon korkeuden 60% näkymästä */
+    overflow-y: auto; /* Lisää pystysuuntainen vieritys */
+    padding: 10px;
+    margin: 20px 0;
+    background-color: rgba(255, 255, 255, 0.9); /* Vaalea, hieman läpinäkyvä tausta */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pehmeä varjo */
 }
