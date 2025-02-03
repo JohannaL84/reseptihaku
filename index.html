@@ -8,37 +8,35 @@
 </head>
 <body>
     <div class="background"></div>
-    <!-- Sivun otsikko -->
-    <h1>Ruokareseptihaku</h1>
 
-    <!-- Lyhyt kuvaus -->
-    <p class="p12">Etsi, jaa, kokeile ja haasta ystäviä tekemään herkullisia reseptejä vaivattomasti!</p>
+    <div class="content-box">
+        <h1>Ruokareseptihaku</h1>
+        <p class="p12">Etsi, jaa, kokeile ja haasta ystäviä tekemään herkullisia reseptejä vaivattomasti!</p>
 
-    <!-- Hakukenttä -->
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
-        <button id="searchButton">Hae</button>
+        <main>
+            <!-- Hakukenttä -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Kirjoita ainesosia tai ruokalajeja">
+                <button id="searchButton">Hae</button>
+            </div>
+
+            <!-- Linkit -->
+            <div class="button-container">
+                <button onclick="window.location.href='index2.html'">Selaa reseptejä</button>
+                <button onclick="window.location.href='login.html'">Kirjaudu</button>
+                <button onclick="window.location.href='register.html'">Uusi käyttäjä</button>
+            </div>
+
+            <!-- Tulokset -->
+            <div id="resultsContainer"></div>
+        </main>
     </div>
 
-    <!-- Linkit siirretty tähän kohtaan -->
-    <div class="button-container">
-        <button onclick="window.location.href='index2.html'">Selaa reseptejä</button>
-        <button onclick="window.location.href='login.html'">Kirjaudu</button>
-        <button onclick="window.location.href='register.html'">Uusi käyttäjä</button>
-    </div>
-
-    <!-- Tulosten näyttöalue -->
-    <div id="resultsContainer"></div>
-
-    <!-- Lyhyt oranssi viiva -->
-    <div class="divider"></div>
-
-    <!-- Alatunniste -->
+    <!-- Footer -->
     <div id="footer">
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </div>
 
-    <!-- Linkitetään hakutoiminnallisuuden JavaScript-tiedosto -->
     <script src="search.js"></script>
 </body>
 </html>
