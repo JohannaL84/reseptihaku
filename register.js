@@ -1,3 +1,8 @@
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('register-form').addEventListener('submit', function(event) {
         event.preventDefault();

@@ -300,3 +300,46 @@ button:hover {
     text-align: center;
     margin: 10px 0;
 }
+
+
+/* Popup container*/
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  /* Ponnahdusikkuna*/
+  .popup .popuptext {
+    visibility: hidden;
+    width: 360px;
+    background-color: #ff6600;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: left;
+    list-style-type: circle;
+    bottom: 40%;
+    border-radius: 10px;
+    padding: 20px 2%;
+    position: fixed;
+    right: 10%;
+  }
+  
+  
+  /* Näyttää ja piilottaa ponnahdusikkunan */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+  }
+  
+  /* Lisätään animaatio */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
