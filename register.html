@@ -5,99 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekisteröidy uudeksi käyttäjäksi</title>
     <link rel="stylesheet" href="styles.css">
- 
 </head>
- 
 <body>
     <div class="background"></div> <!-- Taustakuva -->
- 
- <!-- Kiinteä takaisin-painike -->
- <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
- 
+
+    <!-- Kiinteä takaisin-painike -->
+    <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
+
     <div class="content-box"> <!-- Vaalea laatikko -->
         <header>
             <h1>Ruokareseptihaku</h1>
             <p class="p2">Liity mukaan ja aloita reseptihakumatkasi jo tänään!</p>
         </header>
- 
+
         <section class="login-section">
             <h2>Rekisteröidy</h2>
             <form id="register-form">
- 
+
                 <!-- Pop up ominaisuus ohjeissa -->
-                <div class="popup" onclick="myFunction()"><p class="p2"> Klikkaa ja lue ohjeen ennen rekisteröitymistä!</p>
-                    <span class="popuptext" class="p2" id="myPopup">
+                <div class="popup" onclick="myFunction()">
+                    <p class="p2">Klikkaa ja lue ohjeen ennen rekisteröitymistä!</p>
+                    <span class="popuptext" id="myPopup">
                         <button class="close-btn" onclick="closePopup(event)">&#10006;</button>
- 
-                        <li>Kaikki kentät tulee olla täytettyinä, jotta voit rekisteröityä. </li><br>
-                        <li>Anna toimiva ja käytössäsi oleva sähköpostiosoite. Antamasi sähköposti liitetään profiiliisi ja tämä osoite sinun tulee antaa salasanaa palauttaessa, mikäli unohdit sen. </li> <br>
-                        <li>Salasanan tulee olla vähintään 12 merkkiä pitkä, sisältäen sekä kirjaimia että numeroita. </li><br>
-                        <li>Vältä yleisiä ja helposti arvattavia salasanoja. </li><br>
-                        <li>Käyttäjä voi käyttää tilapäistä lausetta tai useampia sanoja turvallisuuden parantamiseksi. </li><br>
+                        <ul>
+                            <li>Kaikki kentät tulee olla täytettyinä, jotta voit rekisteröityä.</li>
+                            <li>Anna toimiva ja käytössäsi oleva sähköpostiosoite. Antamasi sähköposti liitetään profiiliisi ja tätä käytetään salasanaa palauttaessa.</li>
+                            <li>Salasanan tulee olla vähintään 12 merkkiä pitkä, sisältäen sekä kirjaimia että numeroita.</li>
+                            <li>Vältä yleisiä ja helposti arvattavia salasanoja.</li>
+                            <li>Käytä turvallisuuden parantamiseksi tilapäistä lausetta tai useampia sanoja.</li>
+                        </ul>
                     </span>
-                  </div>
-           
- 
-                  <div class="password-container">
+                </div>
+
+                <div class="password-container">
                     <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
                 </div>
-<<<<<<< HEAD
-               
+
                 <div class="password-container">
                     <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
                 </div>
-               
-=======
-                
-                <div class="password-container">
-                    <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
-                </div>
-                
->>>>>>> b56b82d197fbf2ade619e439e43f2e2e5bee5a92
+
                 <div class="password-container">
                     <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required oninput="checkPasswordStrength()">
                     <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">👁️</button>
                 </div>
                 <div id="passwordStrength" class="strength-meter"></div>
-<<<<<<< HEAD
-               
-=======
-                
->>>>>>> b56b82d197fbf2ade619e439e43f2e2e5bee5a92
+
                 <div class="password-container">
                     <input type="password" id="confirmPassword" placeholder="Vahvista salasana" required>
                     <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">👁️</button>
                 </div>
-<<<<<<< HEAD
-               
+
                 <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
                 <p id="registerError" class="p2" style="color: red;"></p>
-               
-=======
-                
-                <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
-                <p id="registerError" class="p2" style="color: red;"></p>
-                
->>>>>>> b56b82d197fbf2ade619e439e43f2e2e5bee5a92
+
                 <div class="button-container">
                     <button type="submit">Rekisteröidy</button>
                     <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
                 </div>
-<<<<<<< HEAD
-               
-=======
-                
->>>>>>> b56b82d197fbf2ade619e439e43f2e2e5bee5a92
             </form>
-           
         </section>
     </div>
-   
- 
+
     <div id="footer">
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
     </div>
- 
+
     <script src="register.js"></script> <!-- Linkitetään rekisteröintilogiikka -->
 </body>
 </html>
