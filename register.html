@@ -8,15 +8,14 @@
 
     <style>
         
-        </style>
-
+    </style>
 </head>
 
 <body>
     <div class="background"></div> <!-- Taustakuva -->
 
- <!-- Kiinteä takaisin-painike -->
- <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
+    <!-- Kiinteä takaisin-painike -->
+    <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
 
     <div class="content-box"> <!-- Vaalea laatikko -->
         <header>
@@ -29,35 +28,34 @@
             <form id="register-form">
 
                 <!-- Pop up ominaisuus ohjeissa -->
-                <div class="popup" onclick="myFunction()"><p class="p2"> Klikkaa ja lue ohjeen ennen rekisteröitymistä!</p>
+                <div class="popup" onclick="myFunction()">
+                    <p class="p2">Klikkaa tästä ja lue ohjeet ennen rekisteröitymistä!</p>
                     <span class="popuptext" class="p2" id="myPopup">
-
-                        <li>Kaikki kentät tulee olla täytettyinä, jotta voit rekisteröityä. </li><br>
-                        <li>Anna toimiva ja käytössäsi oleva sähköpostiosoite. Antamasi sähköposti liitetään profiiliisi ja tämä osoite sinun tulee antaa salasanaa palauttaessa, mikäli unohdit sen. </li> <br>
-                        <li>Salasanan tulee olla vähintään 12 merkkiä pitkä, sisältäen sekä kirjaimia että numeroita. </li><br>
-                        <li>Vältä yleisiä ja helposti arvattavia salasanoja. </li><br>
-                        <li>Käyttäjä voi käyttää tilapäistä lausetta tai useampia sanoja turvallisuuden parantamiseksi. </li><br>
+                        <li>Kaikki kentät tulee olla täytettyinä, jotta voit rekisteröityä.</li><br>
+                        <li>Anna toimiva ja käytössäsi oleva sähköpostiosoite. Antamasi sähköposti liitetään profiiliisi ja tämä osoite sinun tulee antaa salasanaa palauttaessa, mikäli unohdit sen.</li><br>
+                        <li>Salasanan tulee olla vähintään 12 merkkiä pitkä, sisältäen sekä kirjaimia että numeroita.</li><br>
+                        <li>Vältä yleisiä ja helposti arvattavia salasanoja.</li><br>
+                        <li>Käyttäjä voi käyttää tilapäistä lausetta tai useampia sanoja turvallisuuden parantamiseksi.</li><br>
                     </span>
-                  </div>
-            
+                </div>
 
                 <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
                 <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
                 <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required>
                 <input type="password" id="confirmPassword" placeholder="Vahvista salasana" required>
-            
+
+                <!-- Vahvistus- ja virheviestit -->
+                <p id="registerSuccess" class="p2" style="display: none; color: green;">Rekisteröinti onnistui! Voit nyt kirjautua sisään.</p>
                 <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
                 <p id="registerError" class="p2" style="color: red;"></p>
-            
+
                 <div class="button-container">
                     <button type="submit">Rekisteröidy</button>
                     <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
                 </div>
             </form>
-            
         </section>
     </div>
-    
 
     <div id="footer">
         <p>&copy; 2025 Ruokareseptihaku. Kaikki oikeudet pidätetään.</p>
