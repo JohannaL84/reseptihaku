@@ -81,10 +81,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="photo" class="p2">Lisää kuva:</label>
-                    <input type="file" id="photo" name="photo">
+                    <label for="recipePhoto" class="p2">Lisää kuva:</label>
+                    <input type="file" id="recipePhoto" name="photo" accept="image/*">
                 </div>
- 
+
                 <button type="submit">Tallenna resepti</button>
             </form>
         </section>
@@ -98,6 +98,7 @@
             const recipeDuration = document.getElementById('recipeDuration').value;
             const recipeIngredients = document.getElementById('recipeIngredients').value;
             const recipeInstructions = document.getElementById('recipeInstructions').value;
+            const recipePhoto = document.getElementById('recipePhoto').value;
  
             if (!recipeName || !recipeDuration || !recipeIngredients || !recipeInstructions) {
                 alert('Täytä kaikki kentät ennen tallennusta.');
