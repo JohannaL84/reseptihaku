@@ -12,7 +12,7 @@ body {
     position: relative;
     overflow: hidden;
 }
-
+ 
 .background {
     position: absolute;
     top: 0;
@@ -24,11 +24,11 @@ body {
     filter: blur(8px); /* Sumeuttaa vain taustakuvan */
     z-index: -1; /* Vie taustakuvan kaikkien elementtien taakse */
 }
-
+ 
 body.sumea .background {
     filter: blur(8px); /* Sumeuttaa taustakuvan sumealla sivulla */
 }
-
+ 
 .content-box {
     position: relative;
     background-color: rgba(255, 255, 255, 0.9); /* Vaalea tausta, hieman läpinäkyvä */
@@ -39,31 +39,31 @@ body.sumea .background {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Pehmeä varjo */
     z-index: 1; /* Tuodaan taustakuvan eteen */
 }
-
+ 
 h1 {
     font-size: 4rem;
     margin: 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     color: #ff6600;
 }
-
+ 
 p {
     font-size: 1.2rem;
     margin-top: 1rem;
 }
-
-.p2 { 
+ 
+.p2 {
     font-size: 1.2rem;
     margin-top: 1rem;
     color: #333; /* Tumma harmaa väri TÄMÄ P2 LÖYTYY MM. UNOHTUNTU SALASANA OSIOSTA*/
 }
-
-.p3 { 
+ 
+.p3 {
     font-size: 1.2rem;
     margin-top: 1rem;
     color: #333; /* Tumma harmaa väri TÄMÄ P3 LÖYTYY DASHBOARD*/
 }
-
+ 
 .p12 {
     font-size: 1.2rem; /* Palautetaan aiempi fonttikoko */
     font-weight: normal; /* Ei liian paksu */
@@ -75,23 +75,23 @@ p {
     background: rgba(0, 0, 0, 0.5); /* Tumma, osittain läpinäkyvä tausta */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Pehmeä varjostus */
 }
-
-
+ 
+ 
 .field-instruction { /* UUSI KÄYTTÄJÄ LOMAKE */
     font-size: 0.9rem;
     color: #666; /* Harmaa väri */
     margin-top: 5px;
     text-align: left;
 }
-
-
+ 
+ 
 .search-container {
     display: flex; /* Asettaa hakukentän ja napin vierekkäin */
     align-items: center; /* Kohdistaa pystysuunnassa keskelle */
     margin-top: 20px;
     gap: 10px; /* Väli hakukentän ja napin välillä */
 }
-
+ 
 #searchInput {
     padding: 10px;
     font-size: 1.2rem;
@@ -100,17 +100,17 @@ p {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
+ 
 .boxText {
     color: #ff6600; /*OMIEN TIETOJEN TEKSTIEN VÄRI*/
 }
-
+ 
 .button-container {
     display: flex; /* Asettaa napit riviin */
     gap: 10px; /* Etäisyys nappien välillä */
     margin-top: 20px; /* Etäisyys yläelementeistä */
 }
-
+ 
 button {
     padding: 10px 20px;
     font-size: 1rem;
@@ -121,11 +121,11 @@ button {
     cursor: pointer;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
+ 
 button:hover {
     background-color: #ff5500;
 }
-
+ 
 .divider {
     height: 4px;
     width: 60%;
@@ -133,7 +133,7 @@ button:hover {
     background-color: #ff6600;
     margin: 10px auto;
 }
-
+ 
 /* Footerin muokkaus */
 #footer {
     position: fixed; /* Pitää footerin aina alhaalla */
@@ -148,9 +148,9 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.5); /* Tumma tausta paremman näkyvyyden vuoksi */
     padding: 10px;
 }
-
+ 
 /* Säännöt listan muotoilu*/
-.list { 
+.list {
     text-align: left; /* Tekstin tasaus vasemmalle*/
     color: #333;
     list-style-type: circle; /* Luettelomerkkien tyyppi*/
@@ -158,25 +158,25 @@ button:hover {
     height: 400px; /* Listan leveys*/
     margin-top: 30px auto; /* Elementin ylämarginaali*/
 }
-
+ 
 .login-section {
     margin: 20px auto;
 }
-
+ 
 .login-section h2 {
     font-size: 1.8rem;
     color: #ff6600;
     margin-bottom: 15px;
     text-align: center;
 }
-
+ 
 .login-section form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-
+ 
 .login-section input {
     padding: 10px;
     font-size: 1rem;
@@ -185,7 +185,7 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
+ 
 .login-section button {
     padding: 10px;
     font-size: 1rem;
@@ -195,22 +195,22 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
 }
-
+ 
 .login-section button:hover {
     background-color: #ff5500;
 }
-
+ 
 .login-section a {
     margin-top: 10px;
     font-size: 0.9rem;
     color: #007bff;
     text-decoration: none;
 }
-
+ 
 .login-section a:hover {
     text-decoration: underline;
 }
-
+ 
 .google-btn {
     background-color: #4285F4;
     color: white;
@@ -222,7 +222,7 @@ button:hover {
     width: 100%;
     margin-top: 10px;
 }
-
+ 
 .google-btn:hover {
     background-color: #357ae8;
 }
@@ -240,8 +240,8 @@ button:hover {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-
+ 
+ 
 .recipe-card {
     background-color: #fff;
     color: #333;
@@ -253,36 +253,36 @@ button:hover {
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-align: left;
 }
-
+ 
 .recipe-card h3 {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 10px;
     color: #ff6600;
 }
-
+ 
 .recipe-card p {
     font-size: 1.1rem;
     color: #666;
 }
-
+ 
 .recipe-card a {
     font-size: 1rem;
     color: #ff6600;
     text-decoration: none;
     font-weight: bold;
 }
-
+ 
 .recipe-card a:hover {
     text-decoration: underline;
 }
-
+ 
 .recipe-card:hover {
     background-color: #fff5e6;
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-
+ 
 #resultsContainer {
     max-height: 60vh; /* Rajaa tuloslaatikon korkeuden 60% näkymästä */
     overflow-y: auto; /* Lisää pystysuuntainen vieritys */
@@ -293,22 +293,22 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pehmeä varjo */
 }
-
+ 
 .results-message {
     color: #333; /* Tumma teksti, joka näkyy vaalealla taustalla */
     font-size: 1.2rem;
     text-align: center;
     margin: 10px 0;
 }
-
-
+ 
+ 
 /* Popup container*/
 .popup {
     position: relative;
     display: inline-block;
     cursor: pointer;
   }
-  
+ 
   /* Ponnahdusikkuna*/
   .popup .popuptext {
     visibility: hidden;
@@ -324,22 +324,40 @@ button:hover {
     position: fixed;
     right: 10%;
   }
-  
-  
+ 
+ 
   /* Näyttää ja piilottaa ponnahdusikkunan */
   .popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
   }
-  
+ 
   /* Lisätään animaatio */
   @-webkit-keyframes fadeIn {
-    from {opacity: 0;} 
+    from {opacity: 0;}
     to {opacity: 1;}
   }
-  
+ 
   @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity:1 ;}
   }
+  .strength-meter {
+    height: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin: 10px auto;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.strength-meter-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease;
+    background-color: red;
+    border-radius: 5px;
+}
+
