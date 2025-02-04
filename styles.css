@@ -391,3 +391,18 @@ button:hover {
     width: 0;
     transition: width 0.3s ease;
 }
+.heart-icon {
+    font-size: 1.5rem;
+    color: gray;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.heart-icon:hover {
+    color: red;
+}
+
+.heart-icon.favorited {
+    color: red;
+}
