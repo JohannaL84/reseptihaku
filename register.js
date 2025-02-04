@@ -3,7 +3,55 @@ function myFunction() {
     popup.classList.toggle("show");
 }
 
+function checkPasswordStrength() {
+    const password = document.getElementById('newPassword').value;
+    const strengthMeter = document.getElementById('passwordStrength');
+
+    let strength = 0;
+
+    // Lisää vahvuuspisteitä ehtojen täyttyessä
+    if (password.length >= 12) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/\d/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+    // Päivitä mittarin väri ja leveys
+    const fillElement = document.createElement('div');
+    fillElement.className = 'strength-meter-fill';
+
+    switch (strength) {
+        case 1:
+            fillElement.style.width = '20%';
+            fillElement.style.backgroundColor = 'red';
+            break;
+        case 2:
+            fillElement.style.width = '40%';
+            fillElement.style.backgroundColor = 'orange';
+            break;
+        case 3:
+            fillElement.style.width = '60%';
+            fillElement.style.backgroundColor = 'yellow';
+            break;
+        case 4:
+            fillElement.style.width = '80%';
+            fillElement.style.backgroundColor = 'lightgreen';
+            break;
+        case 5:
+            fillElement.style.width = '100%';
+            fillElement.style.backgroundColor = 'green';
+            break;
+    }
+
+    // Tyhjennetään vanha mittari ja lisätään uusi
+    strengthMeter.innerHTML = '';
+    strengthMeter.appendChild(fillElement);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Lisätään tapahtuma salasanan vahvuuden tarkistamiselle
+    document.getElementById('newPassword').addEventListener('input', checkPasswordStrength);
+
     document.getElementById('register-form').addEventListener('submit', function(event) {
         event.preventDefault();
 

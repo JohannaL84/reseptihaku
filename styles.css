@@ -343,3 +343,21 @@ button:hover {
     from {opacity: 0;}
     to {opacity:1 ;}
   }
+  .strength-meter {
+    height: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin: 10px auto;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.strength-meter-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease;
+    background-color: red;
+    border-radius: 5px;
+}
+

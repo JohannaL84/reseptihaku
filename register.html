@@ -41,8 +41,9 @@
  
                 <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
                 <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
-                <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required>
+                <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required oninput="checkPasswordStrength()">
                 <input type="password" id="confirmPassword" placeholder="Vahvista salasana" required>
+                <div id="passwordStrength" class="strength-meter"></div>
            
                 <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
                 <p id="registerError" class="p2" style="color: red;"></p>
