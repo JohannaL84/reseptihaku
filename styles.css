@@ -343,13 +343,46 @@ button:hover {
     from {opacity: 0;}
     to {opacity:1 ;}
   }
-  .strength-meter {
-    height: 10px;
+  .password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
     width: 80%;
     max-width: 400px;
-    margin: 10px auto;
+    margin-bottom: 10px;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #666;
+    outline: none;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+.strength-meter {
+    width: 80%;
+    max-width: 400px;
+    height: 10px;
     background-color: #ddd;
     border-radius: 5px;
+    margin: 5px 0;
     overflow: hidden;
 }
 
@@ -357,7 +390,4 @@ button:hover {
     height: 100%;
     width: 0;
     transition: width 0.3s ease;
-    background-color: red;
-    border-radius: 5px;
 }
-
