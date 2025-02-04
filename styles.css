@@ -406,3 +406,11 @@ button:hover {
 .heart-icon.favorited {
     color: red;
 }
+
+.login-status {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+}
