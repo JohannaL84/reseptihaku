@@ -39,19 +39,33 @@
                   </div>
            
  
-                <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
-                <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
-                <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required oninput="checkPasswordStrength()">
-                <input type="password" id="confirmPassword" placeholder="Vahvista salasana" required>
+                  <div class="password-container">
+                    <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
+                </div>
+                
+                <div class="password-container">
+                    <input type="email" id="newEmail" placeholder="Sähköpostiosoite (esim. nimi@email.com)" required>
+                </div>
+                
+                <div class="password-container">
+                    <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required oninput="checkPasswordStrength()">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">👁️</button>
+                </div>
                 <div id="passwordStrength" class="strength-meter"></div>
-           
+                
+                <div class="password-container">
+                    <input type="password" id="confirmPassword" placeholder="Vahvista salasana" required>
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">👁️</button>
+                </div>
+                
                 <p id="loadingMessage" style="display: none; color: blue;">⏳ Rekisteröidään...</p>
                 <p id="registerError" class="p2" style="color: red;"></p>
-           
+                
                 <div class="button-container">
                     <button type="submit">Rekisteröidy</button>
                     <button type="button" onclick="location.href='index.html'">Takaisin etusivulle</button>
                 </div>
+                
             </form>
            
         </section>

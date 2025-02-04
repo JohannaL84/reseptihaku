@@ -48,6 +48,20 @@ function checkPasswordStrength() {
     strengthMeter.appendChild(fillElement);
 }
 
+function togglePasswordVisibility(inputId) {
+    const passwordField = document.getElementById(inputId);
+    const icon = passwordField.nextElementSibling;
+
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        icon.textContent = '🙈';  // Kuvake piilotustilaan
+    } else {
+        passwordField.type = 'password';
+        icon.textContent = '👁️';  // Kuvake näkyvyystilaan
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Lisätään tapahtuma salasanan vahvuuden tarkistamiselle
     document.getElementById('newPassword').addEventListener('input', checkPasswordStrength);
