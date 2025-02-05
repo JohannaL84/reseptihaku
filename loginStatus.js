@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loggedInUser) {
         loginStatus.innerHTML = `
             Olet kirjautuneena: 
-            <a href="profile.html">${loggedInUser.username}</a>
+            <a href="dashboard.html">${loggedInUser.username}</a>
             <button class="logout-button" id="logoutButton">Kirjaudu ulos</button>
         `;
 
