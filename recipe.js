@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
  
     const ingredientList = document.getElementById('ingredient-list');
     recipeData.ingredients.forEach(ingredient => {
-        const li = document.createElement('li');
-        li.textContent = ingredient;
-        ingredientList.appendChild(li);
+        const p = document.createElement('p');
+        p.textContent = ingredient;
+        ingredientList.appendChild(p);
     });
  
     document.getElementById('instructions').textContent = recipeData.instructions;

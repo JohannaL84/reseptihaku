@@ -283,7 +283,7 @@ button:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
- 
+
 #resultsContainer {
     max-height: 60vh; /* Rajaa tuloslaatikon korkeuden 60% näkymästä */
     overflow-y: auto; /* Lisää pystysuuntainen vieritys */
