@@ -8,6 +8,10 @@
 </head>
 <body>
     <div class="background"></div>
+
+    <!-- Kirjautumistilan näyttö -->
+    <div id="loginStatus" class="login-status"></div>
+
     
     <!-- Yhdistetty reseptin sisältölaatikko -->
     <div class="content-box recipe-content">
@@ -18,10 +22,10 @@
         </header>
 
         <section class="recipe-details">
-            <h2>Ainesosat</h2>
-            <ul id="ingredient-list"></ul>
+            <h2 class="p2">Ainesosat</h2>
+            <ul class="p2" id="ingredient-list"></ul>
 
-            <h2>Ohjeet</h2>
+            <h2 class="p2">Ohjeet</h2>
             <p id="instructions"></p>
         </section>
 
@@ -32,6 +36,8 @@
         <p>&copy; 2025 Reseptihakusovellus. Kaikki oikeudet pidätetään.</p>
     </footer>
 
+<!-- JavaScript-tiedostot -->
+    <script src="loginStatus.js?v=1.0"></script>
     <script src="recipe.js"></script>
 </body>
 </html>
