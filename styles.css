@@ -450,3 +450,102 @@ button:hover {
 .logout-button:hover {
     background-color: #c9302c;
 }
+
+/* Perusresponiivisuus – Pienille näytöille (maksimileveys 768px) */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+        text-align: center;
+        height: auto; /* Poistaa kiinteän korkeuden mobiililaitteilla */
+    }
+
+    .content-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .login-section input,
+    .password-container input {
+        width: 100%; /* Tekee input-kentistä koko laatikon levyiset */
+    }
+
+    .toggle-password {
+        right: 5px; /* Siirtää silmäkuvaketta hieman lähemmäs reunoja */
+    }
+
+    button {
+        width: 100%; /* Napit vievät täyden leveyden mobiilissa */
+    }
+
+    .button-container {
+        flex-direction: column; /* Asettaa napit päällekkäin */
+        gap: 15px;
+    }
+
+    .popup .popuptext {
+        width: 90%; /* Popup-ikkuna vie suuremman osan ruudusta mobiilissa */
+        right: 5%;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .login-status {
+        width: auto;
+        font-size: 1rem;
+        top: 10px;
+        right: 10px;
+    }
+
+    h1 {
+        font-size: 2.5rem; /* Pienempi otsikko mobiilissa */
+    }
+
+    .password-container {
+        width: 100%; /* Tekee salasana-konteista koko laatikon levyiset */
+    }
+
+    .strength-meter {
+        width: 100%; /* Salasanan vahvuusmittari täyttää inputin leveyden */
+    }
+
+    .options-container {
+        flex-direction: column; /* Vaihtoehdot asetetaan päällekkäin mobiilissa */
+        gap: 10px;
+    }
+}
+
+/* Lisämuutoksia erittäin pienille näytöille (max 480px) */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .popup .popuptext {
+        font-size: 0.8rem; /* Pienempi fontti ponnahdusikkunassa */
+    }
+
+    .logout-button {
+        font-size: 0.9rem;
+    }
+
+    .recipe-card {
+        padding: 10px;
+    }
+
+    .recipe-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .recipe-card p {
+        font-size: 0.9rem;
+    }
+
+    .button-container button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}
