@@ -294,7 +294,18 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pehmeä varjo */
 }
- 
+
+.recipe-image {
+    width: 200px; /* Kuvaa pienemmäksi (muokkaa tarpeen mukaan) */
+    height: 200px; /* Sama arvo kuin leveys, jotta saadaan ympyrä */
+    border-radius: 50%; /* Ympyrän muoto */
+    object-fit: cover; /* Pitää kuvan täytteenä ympyrän sisällä */
+    margin: 20px auto; /* Keskitetään kuva ylä- ja alapuolella */
+    display: block; /* Keskitykseen yhdessä marginin kanssa */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Pehmeä varjo */
+}
+
+
 .results-message {
     color: #333; /* Tumma teksti, joka näkyy vaalealla taustalla */
     font-size: 1.2rem;
