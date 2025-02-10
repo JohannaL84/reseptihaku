@@ -337,19 +337,20 @@ button:hover {
   }
  
  
-  /* Näyttää ja piilottaa ponnahdusikkunan */
+  /* Näyttää ja piilottaa ponnahdusikkunan, määrittää ajan */
   .popup .show {
     visibility: visible;
-    -webkit-animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s; 
     animation: fadeIn 1s;
   }
  
-  /* Lisätään animaatio */
+  /* Lisätään animaatio, tukee selaimen asetuksia animaation esityksessä  */
   @-webkit-keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
   }
  
+  /* Määritetään animaation vaiheet*/
   @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity:1 ;}
