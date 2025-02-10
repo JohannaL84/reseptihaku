@@ -1,11 +1,15 @@
+// Kun sivun sisältö on ladattu, suoritetaan tämä koodi
 document.addEventListener('DOMContentLoaded', function() {
-    const searchButton = document.getElementById('searchButton');
-    const searchInput = document.getElementById('searchInput');
-    const resultsContainer = document.getElementById('resultsContainer');
+    // Haetaan tärkeät DOM-elementit
+    const searchButton = document.getElementById('searchButton'); // Hakupainike
+    const searchInput = document.getElementById('searchInput');   // Hakukenttä
+    const resultsContainer = document.getElementById('resultsContainer'); // Tulosten näyttöalue
 
-    const API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
-    const API_KEY = 'd451e3d4e29b4796b9fa627c0c18a6ff';
+    // API-tiedot
+    const API_URL = 'https://api.spoonacular.com/recipes/complexSearch'; // Reseptihaun API-osoite
+    const API_KEY = 'd451e3d4e29b4796b9fa627c0c18a6ff'; // API-avain (vaihda tämä omaan avainkoodiin)
 
+    // Hakusanojen käännöstaulukko (suomenkielisistä hakusanoista englanniksi)
     const translationDictionary = {
         'kana': 'chicken',
         'kala': 'fish',
@@ -16,34 +20,42 @@ document.addEventListener('DOMContentLoaded', function() {
         'pasta': 'pasta'
     };
 
+    // Sovelluksen omat reseptit (esimerkkidata)
     const systemRecipes = [
         { name: 'Kasvispasta', description: 'Herkullinen kasvispasta.', ingredients: ['pasta', 'kasvikset'], link: 'resepti.html?id=1', external: false },
         { name: 'Marjapiirakka', description: 'Maukas piirakka tuoreista marjoista.', ingredients: ['marjat', 'taikina'], link: 'resepti.html?id=2', external: false }
     ];
 
+    // Haetaan kirjautuneen käyttäjän tiedot paikallisesta tallennuksesta
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
     const userRecipes = loggedInUser.savedRecipes || [];
 
+    // Lisätään tapahtumankuuntelija hakupainikkeelle
     searchButton.addEventListener('click', function() {
-        let query = searchInput.value.toLowerCase().trim();
-        resultsContainer.innerHTML = '';
+        let query = searchInput.value.toLowerCase().trim(); // Haetaan käyttäjän antama hakusana ja muokataan se pieniksi kirjaimiksi
+        resultsContainer.innerHTML = ''; // Tyhjennetään aiemmat tulokset
 
+        // Jos hakusana on tyhjä, näytetään viesti ja lopetetaan toiminto
         if (!query) {
             resultsContainer.innerHTML = '<p class="results-message">Kokeile hakea uudestaan kirjoittamalla hakusana.</p>';
             return;
         }
 
+        // Jos hakusana löytyy käännöstaulukosta, muutetaan se englanninkieliseksi
         if (translationDictionary[query]) query = translationDictionary[query];
 
+        // Suodatetaan käyttäjän ja järjestelmän reseptit hakusanan perusteella
         const matchedUserRecipes = userRecipes.filter(recipe => recipe.name.toLowerCase().includes(query));
         const matchedSystemRecipes = systemRecipes.filter(recipe => recipe.name.toLowerCase().includes(query));
 
+        // Suoritetaan API-haku käyttäen hakusanaa
         fetch(`${API_URL}?query=${query}&apiKey=${API_KEY}`)
             .then(response => {
-                if (!response.ok) throw new Error('API-haku epäonnistui');
-                return response.json();
+                if (!response.ok) throw new Error('API-haku epäonnistui'); // Virheenhallinta, jos API-haku epäonnistuu
+                return response.json(); // Palautetaan JSON-muodossa oleva data
             })
             .then(data => {
+                // Muodostetaan API:n tuloksista uusi reseptilista
                 const matchedOpenSourceRecipes = data.results.map(recipe => ({
                     title: recipe.title,
                     description: 'Katso tarkemmat ohjeet linkistä.',
@@ -51,15 +63,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     external: true
                 }));
 
+                // Yhdistetään kaikki löytyneet tulokset yhdeksi listaksi
                 const allResults = [...matchedUserRecipes, ...matchedSystemRecipes, ...matchedOpenSourceRecipes];
 
+                // Jos ei löydy yhtään tulosta, näytetään viesti
                 if (allResults.length === 0) {
                     resultsContainer.innerHTML = '<p>Ei löytynyt reseptejä hakusanalla. Kokeile toista hakusanaa.</p>';
                 } else {
+                    // Luodaan jokaiselle löydetylle reseptille kortti
                     allResults.forEach(recipe => {
                         const recipeElement = document.createElement('div');
                         recipeElement.classList.add('recipe-card');
 
+                        // Kortin HTML-sisältö
                         recipeElement.innerHTML = `
                             <h3>${recipe.name || recipe.title}</h3>
                             <p>${recipe.description}</p>
@@ -88,11 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     document.querySelectorAll('.share-link').forEach(link => {
                         link.addEventListener('click', function(event) {
-                            event.preventDefault();
+                            event.preventDefault(); // Estetään linkin normaali toiminta
                             const recipeName = link.getAttribute('data-recipe');
                             const shareUrl = `${window.location.origin}/resepti.html?name=${encodeURIComponent(recipeName)}`;
 
-                            // Kopioidaan linkki leikepöydälle
+                            // Kopioidaan jaetun reseptin linkki leikepöydälle
                             navigator.clipboard.writeText(shareUrl)
                                 .then(() => {
                                     alert('Reseptin linkki kopioitu leikepöydälle!');
@@ -106,26 +122,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
+                // Virhetilanne API-haussa
                 console.error('Virhe haun aikana:', error);
                 resultsContainer.innerHTML = '<p>Virhe haun aikana. Yritä uudelleen myöhemmin.</p>';
             });
     });
 
+    // Funktio reseptin lisäämiseksi tai poistamiseksi suosikeista
     function toggleFavoriteRecipe(icon, recipeName) {
         if (!loggedInUser.username) {
             alert('Kirjaudu sisään lisätäksesi reseptin suosikkeihin.');
             return;
         }
 
+        // Tarkistetaan, onko resepti jo suosikeissa
         if (!userRecipes.some(recipe => recipe.name === recipeName)) {
             userRecipes.push({ name: recipeName });
             loggedInUser.savedRecipes = userRecipes;
             localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-            icon.classList.add('favorited');
+            icon.classList.add('favorited'); // Merkitään resepti suosikiksi
             alert('Resepti lisätty suosikkeihin!');
         } else {
             const index = userRecipes.findIndex(recipe => recipe.name === recipeName);
-            userRecipes.splice(index, 1);
+            userRecipes.splice(index, 1); // Poistetaan resepti suosikeista
             loggedInUser.savedRecipes = userRecipes;
             localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
             icon.classList.remove('favorited');

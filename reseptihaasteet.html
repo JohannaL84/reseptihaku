@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reseptihaaste</title>
+    <!-- Sivun metatiedot -->
+    <meta charset="UTF-8"> <!-- Määrittää UTF-8-merkistökoodauksen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsiivinen näkymä mobiililaitteille -->
+    <title>Reseptihaaste</title> <!-- Sivun otsikko -->
+
+    <!-- Tyylitiedot -->
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Pääotsikon tyyli */
         h1 {
             font-size: 3rem;
             color: #ff6600;
@@ -14,6 +18,7 @@
             margin-bottom: 10px;
         }
 
+        /* Keskustekstin tyyli */
         .p2 {
             font-size: 1.3rem;
             color: #333;
@@ -25,10 +30,12 @@
             text-align: center;
         }
 
+        /* Haasteosion tyyli */
         section {
             margin-top: 20px;
         }
 
+        /* Alaotsikon tyyli */
         h2 {
             font-size: 2rem;
             color: #ff6600;
@@ -37,6 +44,7 @@
             text-align: center;
         }
 
+        /* Listaelementin tyyli */
         ul {
             list-style-type: circle;
             margin: 20px auto;
@@ -47,6 +55,7 @@
             text-align: left;
         }
 
+        /* Yksittäisen listakohdan tyyli */
         li {
             margin: 10px 0;
             padding: 5px 10px;
@@ -55,6 +64,7 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
+        /* Linkin tyyli */
         a {
             color: #007bff;
             font-weight: bold;
@@ -62,10 +72,12 @@
             margin-left: 10px;
         }
 
+        /* Linkin hover-efekti */
         a:hover {
             text-decoration: underline;
         }
 
+        /* Kiinteä takaisin-painike */
         .back-button {
             position: fixed;
             top: 50%;
@@ -81,6 +93,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* Footerin tyyli */
         footer {
             margin-top: 20px;
             text-align: center;
@@ -90,43 +103,47 @@
     </style>
 </head>
 <body>
-    <div class="background"></div> <!-- Taustakuva -->
+    <!-- Taustakuva -->
+    <div class="background"></div>
 
     <!-- Kirjautumistilan näyttö -->
     <div id="loginStatus" class="login-status"></div>
 
-    <!-- Kiinteä takaisin-painike -->
+    <!-- Takaisin-painike, joka ohjaa edelliselle sivulle -->
     <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
 
-    <div class="content-box"> <!-- Vaalea laatikko -->
+    <!-- Sisältölaatikko -->
+    <div class="content-box">
+        <!-- Otsikko ja kuvaus -->
         <header>
             <h1>Reseptihaaste</h1>
             <p class="p2">Haasta muut käyttäjät reseptihaasteen kautta ja kerää pisteitä!</p>
         </header>
 
-        <!-- Haasteiden lista -->
+        <!-- Haasteiden listat -->
         <section>
             <h2>Aktiiviset haasteet</h2>
-            <ul id="activeChallenges"></ul>
+            <ul id="activeChallenges"></ul> <!-- Täytetään JavaScriptillä -->
 
             <h2>Menneet haasteet</h2>
-            <ul id="pastChallenges"></ul>
+            <ul id="pastChallenges"></ul> <!-- Täytetään JavaScriptillä -->
         </section>
 
-        <!-- Käyttäjän pisteet (näkyy vain kirjautuneille käyttäjille) -->
+        <!-- Käyttäjän pisteet näkyvät vain kirjautuneille käyttäjille -->
         <section id="pointsSection" style="display: none;">
             <h2>Omat pisteet</h2>
             <p class="p2"><strong>Pisteet:</strong> <span id="points">0</span></p>
         </section>
     </div>
 
-
+    <!-- JavaScript-logiikka -->
     <script>
+        // Paikallisen tallennuksen avainten määrittely
         const activeChallengesKey = "activeChallenges";
         const pastChallengesKey = "pastChallenges";
         const userKey = "loggedInUser";
 
-        // Mock-haasteet
+        // Mock-data haasteille
         const mockActiveChallenges = [
             { title: "Kasvisruokahaaste", description: "Valmista herkullinen kasvisruoka!" },
             { title: "Kolmen ruokalajin illallinen", description: "Suunnittele ja toteuta illallinen alkuruoasta jälkiruokaan." },
@@ -138,6 +155,7 @@
             { title: "Keittohaaste", description: "Valmista keitto käyttäen sesongin kasviksia." }
         ];
 
+        // Tallennetaan mock-data paikalliseen tallennukseen, jos sitä ei vielä ole
         if (!localStorage.getItem(activeChallengesKey)) {
             localStorage.setItem(activeChallengesKey, JSON.stringify(mockActiveChallenges));
         }
@@ -145,27 +163,31 @@
             localStorage.setItem(pastChallengesKey, JSON.stringify(mockPastChallenges));
         }
 
+        // Tarkistetaan, onko käyttäjä kirjautunut sisään
         function isUserLoggedIn() {
             return JSON.parse(localStorage.getItem(userKey)) !== null;
         }
 
+        // Näytetään haasteet sivulla
         function displayChallenges() {
             const activeChallenges = JSON.parse(localStorage.getItem(activeChallengesKey)) || [];
             const pastChallenges = JSON.parse(localStorage.getItem(pastChallengesKey)) || [];
             const activeList = document.getElementById("activeChallenges");
             const pastList = document.getElementById("pastChallenges");
 
+            // Täytetään aktiiviset haasteet
             activeList.innerHTML = "";
             activeChallenges.forEach(challenge => {
                 let li = document.createElement("li");
                 li.textContent = `${challenge.title} - ${challenge.description}`;
                 let link = document.createElement("a");
-                link.href = "haaste.html";
+                link.href = "haaste.html"; // Linkki haasteen sivulle
                 link.textContent = "Siirry haasteeseen";
                 li.appendChild(link);
                 activeList.appendChild(li);
             });
 
+            // Täytetään menneet haasteet
             pastList.innerHTML = "";
             pastChallenges.forEach(challenge => {
                 let li = document.createElement("li");
@@ -173,12 +195,14 @@
                 pastList.appendChild(li);
             });
 
+            // Jos käyttäjä on kirjautunut sisään, näytetään pisteet
             if (isUserLoggedIn()) {
                 displayUserPoints();
                 document.getElementById("pointsSection").style.display = "block";
             }
         }
 
+        // Näytetään käyttäjän pisteet
         function displayUserPoints() {
             const loggedInUser = JSON.parse(localStorage.getItem(userKey));
             if (loggedInUser) {
@@ -186,6 +210,7 @@
             }
         }
 
+        // Suoritetaan, kun sivu on ladattu
         document.addEventListener("DOMContentLoaded", displayChallenges);
     </script>
 
@@ -195,7 +220,6 @@
     </div>
 
     <!-- JavaScript-tiedostot -->
-    <script src="loginStatus.js?v=1.0"></script>
-
+    <script src="loginStatus.js?v=1.0"></script> <!-- Kirjautumistilan hallinta -->
 </body>
 </html>
