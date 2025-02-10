@@ -49,6 +49,21 @@
             text-decoration: underline;
         }
 
+        .share-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .share-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
         .load-more-button {
             display: block;
             margin: 20px auto;
@@ -94,11 +109,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
-            const API_KEY = 'd451e3d4e29b4796b9fa627c0c18a6ff';  // Lisää oma API-avaimesi
-            const query = 'vegetarian';  // Hakutermi "vegetarian"
-            let offset = 0;  // Hakutulosten siirtymäkohta (pagination)
+            const API_KEY = 'd451e3d4e29b4796b9fa627c0c18a6ff';
+            const query = 'vegetarian';
+            let offset = 0;
             const resultsContainer = document.getElementById('resultsContainer');
             const loadMoreButton = document.getElementById('loadMoreButton');
+
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
+            const userRecipes = loggedInUser.savedRecipes || [];
 
             function fetchVegetarianRecipes() {
                 fetch(`${API_URL}?query=${query}&number=10&offset=${offset}&apiKey=${API_KEY}`)
@@ -122,11 +140,43 @@
                                 <h3>${recipe.title}</h3>
                                 <p>Katso reseptin tarkemmat tiedot linkistä.</p>
                                 <a href="https://spoonacular.com/recipes/${recipe.title.replace(/ /g, '-').toLowerCase()}-${recipe.id}" target="_blank">Avaa resepti</a>
+                                ${loggedInUser.username ? `
+                                    <span class="heart-icon" data-recipe="${recipe.title}">&#10084;</span>
+                                    <a href="#" class="share-link" data-recipe="${recipe.title}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-share" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                            <path d="M14 9V5l7 7-7 7v-4H5V9h9zm-9 0H3v6h2V9z"/>
+                                        </svg>
+                                        Jaa resepti
+                                    </a>
+                                ` : ''}
                             `;
                             resultsContainer.appendChild(recipeElement);
+
+                            // Lisää tapahtumankuuntelijat
+                            if (loggedInUser.username) {
+                                const heartIcon = recipeElement.querySelector('.heart-icon');
+                                const shareLink = recipeElement.querySelector('.share-link');
+
+                                heartIcon.addEventListener('click', function() {
+                                    toggleFavoriteRecipe(heartIcon, recipe.title);
+                                });
+
+                                shareLink.addEventListener('click', function(event) {
+                                    event.preventDefault();
+                                    const shareUrl = `${window.location.origin}/resepti.html?name=${encodeURIComponent(recipe.title)}`;
+
+                                    navigator.clipboard.writeText(shareUrl)
+                                        .then(() => {
+                                            alert('Reseptin linkki kopioitu leikepöydälle!');
+                                        })
+                                        .catch(() => {
+                                            alert('Linkin kopiointi epäonnistui. Yritä uudelleen.');
+                                        });
+                                });
+                            }
                         });
 
-                        offset += 10;  // Päivitetään offset seuraavaa hakua varten
+                        offset += 10;
                     })
                     .catch(error => {
                         console.error('Virhe haun aikana:', error);
@@ -135,10 +185,29 @@
                     });
             }
 
-            // Lataa lisää -painikkeen tapahtuma
-            loadMoreButton.addEventListener('click', fetchVegetarianRecipes);
+            function toggleFavoriteRecipe(icon, recipeName) {
+                if (!loggedInUser.username) {
+                    alert('Kirjaudu sisään lisätäksesi reseptin suosikkeihin.');
+                    return;
+                }
 
-            // Lataa ensimmäinen erä reseptejä sivun avauduttua
+                if (!userRecipes.some(recipe => recipe.name === recipeName)) {
+                    userRecipes.push({ name: recipeName });
+                    loggedInUser.savedRecipes = userRecipes;
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                    icon.classList.add('favorited');
+                    alert('Resepti lisätty suosikkeihin!');
+                } else {
+                    const index = userRecipes.findIndex(recipe => recipe.name === recipeName);
+                    userRecipes.splice(index, 1);
+                    loggedInUser.savedRecipes = userRecipes;
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                    icon.classList.remove('favorited');
+                    alert('Resepti poistettu suosikeista.');
+                }
+            }
+
+            loadMoreButton.addEventListener('click', fetchVegetarianRecipes);
             fetchVegetarianRecipes();
         });
     </script>
@@ -150,6 +219,5 @@
 
     <!-- JavaScript-tiedostot -->
     <script src="loginStatus.js?v=1.0"></script>
-
 </body>
 </html>
