@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resepti - Reseptihakusovellus</title>
+    <!-- Sivun metatiedot -->
+    <meta charset="UTF-8"> <!-- Määrittää sivun merkistökoodauksen UTF-8-muotoon -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mobiililaitteiden responsiivisuus -->
+    <title>Resepti - Reseptihakusovellus</title> <!-- Sivun otsikko, joka näkyy selaimen välilehdessä -->
+
+    <!-- Tyylitiedoston linkitys -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Sivun taustakuva -->
     <div class="background"></div>
 
-    <!-- Kirjautumistilan näyttö -->
+    <!-- Kirjautumistilan näyttö, joka näyttää käyttäjän kirjautumistilanteen -->
     <div id="loginStatus" class="login-status"></div>
 
-    
-    <!-- Yhdistetty reseptin sisältölaatikko -->
+    <!-- Reseptin sisältölaatikko -->
     <div class="content-box recipe-content">
         <header>
+            <!-- Reseptin otsikko -->
             <h1 id="recipe-title">Reseptin nimi</h1>
-            <img id="recipe-image" src="images/reseptikuva.png"Reseptin kuva" class="recipe-image">
+
+            <!-- Reseptin kuva -->
+            <img id="recipe-image" src="images/reseptikuva.png" alt="Reseptin kuva" class="recipe-image">
+
+            <!-- Reseptin lyhyt kuvaus -->
             <p id="recipe-description">Lyhyt kuvaus reseptistä</p>
         </header>
 
+        <!-- Reseptin tarkemmat tiedot -->
         <section class="recipe-details">
+            <!-- Ainesosat-otsikko -->
             <h2 class="p2">Ainesosat</h2>
+
+            <!-- Ainesosaluettelo, joka täytetään JavaScriptillä -->
             <p class="p2" id="ingredient-list"></p>
 
+            <!-- Valmistusohjeet-otsikko -->
             <h2 class="p2">Ohjeet</h2>
+
+            <!-- Valmistusohjeet, jotka täytetään JavaScriptillä -->
             <p id="instructions"></p>
         </section>
 
+        <!-- Takaisin-painike, joka vie käyttäjän takaisin edelliselle sivulle -->
         <button class="back-button" onclick="history.back()">Takaisin hakutuloksiin</button>
     </div>
 
+    <!-- Sivun alatunniste -->
     <footer id="footer">
         <p>&copy; 2025 Reseptihakusovellus. Kaikki oikeudet pidätetään.</p>
     </footer>
 
-<!-- JavaScript-tiedostot -->
-    <script src="loginStatus.js?v=1.0"></script>
-    <script src="recipe.js"></script>
+    <!-- JavaScript-tiedostojen linkitykset -->
+    <script src="loginStatus.js?v=1.0"></script> <!-- Näyttää ja päivittää kirjautumistilan -->
+    <script src="recipe.js"></script> <!-- Hoitaa reseptin tietojen täyttämisen ja logiikan -->
 </body>
 </html>
