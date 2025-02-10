@@ -12,7 +12,7 @@
     <!-- Kirjautumistilan näyttö -->
     <div id="loginStatus" class="login-status"></div>
  
-    <!-- Kiinteä takaisin-painike -->
+    <!-- Kiinteä takaisin-painike, joka lataa edellisen URL- osoitteen ja säilyttää sivun historialuettelon. Unicode- merkkinä nuoli -->
     <button class="back-button" onclick="history.back()">&#8592; Takaisin</button>
  
     <div class="content-box"> <!-- Vaalea laatikko -->
@@ -25,10 +25,11 @@
             <h2>Rekisteröidy</h2>
             <form id="register-form">
  
-                <!-- Pop up ominaisuus ohjeissa -->
+                <!-- Ohjeistetaan käyttäjä avaamaan ohjeet ennen kirjautumista. Pop up ominaisuus ohjeissa. -->
                 <div class="popup" onclick="popUp()">
                     <p class="p2">Klikkaa ja lue ohjeen ennen rekisteröitymistä!</p>
                     <span class="popuptext" id="myPopup">
+                        <!-- Popup:n sulkupainike. Unicode- merkkinä risti -->
                         <button class="close-btn" onclick="closePopup(event)">&#10006;</button>
                         <ul>
                             <li>Kaikki kentät tulee olla täytettyinä, jotta voit rekisteröityä.</li>
@@ -40,6 +41,7 @@
                     </span>
                 </div>
  
+                 <!-- Kirjautumisalue, jossa syöttökenttä ohjeistetaan täyttämään ennen sallittua rekisteröitymistä. -->
                 <div class="password-container">
                     <input type="text" id="newUsername" placeholder="Käyttäjätunnus (vain kirjaimia ja numeroita)" required>
                 </div>
@@ -49,7 +51,9 @@
                 </div>
  
                 <div class="password-container">
+                    <!-- Oninput kutsuu määrättyä funktiota tarkastamaan salasanalle määrätyt kriteerit. -->
                     <input type="password" id="newPassword" placeholder="Salasana (väh. 12 merkkiä)" required oninput="checkPasswordStrength()">
+                    <!-- Toggle-password- toiminto näyttää salasanan -->
                     <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">👁️</button>
                 </div>
                 <div id="passwordStrength" class="strength-meter"></div>
