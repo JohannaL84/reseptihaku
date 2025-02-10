@@ -462,6 +462,23 @@ button:hover {
     background-color: #c9302c;
 }
 
+.share-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.share-link svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.share-link:hover {
+    color: #0056b3;
+}
 /* Perusresponiivisuus – Pienille näytöille (maksimileveys 768px) */
 @media screen and (max-width: 768px) {
     body {
