@@ -6,16 +6,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+        const loginMessage = document.getElementById('loginMessage');
 
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const user = users.find(u => u.username === username && u.password === password);
 
         if (user) {
-            alert('Kirjauduit sisään onnistuneesti!');
-            localStorage.setItem('loggedInUser', JSON.stringify(user));
-            window.location.href = 'dashboard.html';
+            loginMessage.textContent = 'Kirjauduit sisään onnistuneesti!';
+            loginMessage.style.color = 'green';
+            
+            // Näytä viesti 3 sekunnin ajan, sitten siirry dashboardiin
+            setTimeout(() => {
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+                window.location.href = 'dashboard.html';
+            }, 3000);
         } else {
-            document.getElementById('loginError').textContent = 'Virheellinen käyttäjänimi tai salasana.';
+            loginMessage.textContent = 'Virheellinen käyttäjänimi tai salasana.';
+            loginMessage.style.color = 'red';
         }
     });
 });
