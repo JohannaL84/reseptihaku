@@ -165,7 +165,7 @@
                     // Lisätään poistonappi ympyrään ja reseptin klikkaustoiminto
                     circle.appendChild(deleteButton);
                     circle.addEventListener("click", function() {
-                        alert(`Resepti: ${recipe.name}\n\nAinekset ja ohjeet:\n${recipe.instructions}`);
+                        alert(`Resepti: ${recipe.name}\n\nAinekset: \n${recipe.ingredients}\n\nOhjeet: \n${recipe.instructions}`);
                     });
 
                     // Lisätään ympyrä näkymään

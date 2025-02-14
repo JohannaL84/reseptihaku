@@ -115,9 +115,10 @@
                 ingredients: recipeIngredients,
                 instructions: recipeInstructions
             };
- 
+            
             // Hae nykyiset tallennetut reseptit tai alustetaan tyhjä lista
             let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
             if (!loggedInUser) {
                 alert('Sinun täytyy kirjautua sisään ennen reseptin tallennusta.');
                 window.location.href = 'login.html';
